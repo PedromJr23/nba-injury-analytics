@@ -11,80 +11,61 @@ def generate_plots_and_tables():
     con = duckdb.connect(DB_PATH)
     sns.set_theme(style="whitegrid")
     
-    print("📊 Gerando tabelas e gráficos estatísticos a partir da camada Gold...")
+    print("📊 Gerando análises e comparações topográficas de lesões por Era...")
     
-    # 1. Dados de Era
-    df_eras = con.execute("""
-        SELECT 
-            season,
-            avg_league_pace,
-            avg_league_fg3a,
-            total_injuries,
-            overuse_injuries,
-            overuse_injury_pct
-        FROM main_gold.fct_league_era_workload_injuries
-        ORDER BY season ASC
+    # 1. Top 10 Tipos/Locais de Lesão por Era
+    df_top_injuries = con.execute("""
+        WITH era_injuries AS (
+            SELECT 
+                CASE 
+                    WHEN season < 2000 THEN 'Era Tradicional (1980-1999)'
+                    ELSE 'Era Modern Space (2010-2024)'
+                END AS era_group,
+                injury_category,
+                COUNT(*) AS total_cases
+            FROM main_silver.stg_injuries
+            WHERE injury_category IS NOT NULL
+            GROUP BY 1, 2
+        )
+        SELECT era_group, injury_category, total_cases
+        FROM era_injuries
+        ORDER BY era_group, total_cases DESC
     """).df()
     
-    # 2. Dados de ACWR
-    df_acwr = con.execute("""
-        SELECT 
-            acwr_ratio,
-            injury_category,
-            is_back_to_back
-        FROM main_gold.fct_acute_chronic_workload_ratio
-        WHERE acwr_ratio IS NOT NULL
-    """).df()
+    # 2. Dados Gerais da Gold
+    df_eras = con.execute("SELECT * FROM main_gold.fct_league_era_workload_injuries ORDER BY season ASC").df()
+    df_acwr = con.execute("SELECT * FROM main_gold.fct_acute_chronic_workload_ratio WHERE acwr_ratio IS NOT NULL").df()
     
     con.close()
     
-    # --- GRÁFICO 1: Evolução Longitudinal do Pace & Espaçamento vs. Volume de Lesões ---
-    fig, ax1 = plt.subplots(figsize=(12, 6))
-
-    color = 'tab:blue'
-    ax1.set_xlabel('Temporada (Season)', fontsize=12, fontweight='bold')
-    ax1.set_ylabel('Total de Lesões por Sobrecarga (Overuse)', color=color, fontsize=12, fontweight='bold')
-    ax1.plot(df_eras['season'], df_eras['overuse_injuries'], color=color, linewidth=2.5, label='Lesões por Sobrecarga')
-    ax1.tick_params(axis='y', labelcolor=color)
-
-    ax2 = ax1.twinx()  
-    color = 'tab:red'
-    ax2.set_ylabel('Ritmo Médio de Jogo (Pace)', color=color, fontsize=12, fontweight='bold')
-    ax2.plot(df_eras['season'], df_eras['avg_league_pace'], color=color, linewidth=2, linestyle='--', label='Pace Médio')
-    ax2.tick_params(axis='y', labelcolor=color)
-
-    plt.title('NBA (1980–2024): Evolução do Ritmo de Jogo (Pace) vs. Incidência de Lesões Musculares', fontsize=14, pad=15)
-    fig.tight_layout()
-    plot1_path = os.path.join(OUTPUT_DIR, "pace_vs_overuse_injuries.png")
-    plt.savefig(plot1_path, dpi=300)
-    plt.close()
-    print(f"✅ Gráfico 1 salvo em: {plot1_path}")
-
-    # --- GRÁFICO 2: Distribuição do ACWR no momento da lesão ---
-    plt.figure(figsize=(10, 5))
-    sns.histplot(df_acwr['acwr_ratio'], bins=25, kde=True, color='purple')
-    plt.axvline(1.5, color='red', linestyle='--', linewidth=2, label='Limiar de Risco (ACWR = 1.5)')
-    plt.title('Distribuição da Razão Aguda:Crônica (ACWR) no Momento da Lesão', fontsize=13, pad=12)
-    plt.xlabel('ACWR (Acute:Chronic Workload Ratio)', fontsize=11)
-    plt.ylabel('Frequência de Ocorrências', fontsize=11)
-    plt.legend()
+    # --- GRÁFICO 1: Comparativo Top Locais/Tipos de Lesão (Tradicional vs Moderna) ---
+    plt.figure(figsize=(12, 6))
+    sns.barplot(
+        data=df_top_injuries, 
+        x='total_cases', 
+        y='injury_category', 
+        hue='era_group', 
+        palette='magma'
+    )
+    plt.title('Mudança Biomecânica: Top Categoria de Lesões (1980-1999 vs 2010-2024)', fontsize=14, pad=15)
+    plt.xlabel('Total de Ocorrências Registradas', fontsize=11)
+    plt.ylabel('Categoria / Local da Lesão', fontsize=11)
+    plt.legend(title='Era')
     plt.tight_layout()
-    plot2_path = os.path.join(OUTPUT_DIR, "acwr_distribution.png")
-    plt.savefig(plot2_path, dpi=300)
+    
+    top10_path = os.path.join(OUTPUT_DIR, "top_injuries_by_era.png")
+    plt.savefig(top10_path, dpi=300)
     plt.close()
-    print(f"✅ Gráfico 2 salvo em: {plot2_path}")
+    print(f"✅ Gráfico do Top Lesões salvo em: {top10_path}")
 
-    print("\n📌 TABELA ANALÍTICA RESUMIDA POR DECADA:")
-    print("-" * 60)
-    summary_table = df_eras.groupby((df_eras['season'] // 10) * 10).agg({
-        'avg_league_pace': 'mean',
-        'avg_league_fg3a': 'mean',
-        'total_injuries': 'sum',
-        'overuse_injuries': 'sum',
-        'overuse_injury_pct': 'mean'
-    }).round(1)
-    print(summary_table.to_string())
-    print("-" * 60)
+    # Print do Relatório no Terminal
+    print("\n📌 COMPARATIVO: TOP LOCAIS/TIPOS DE LESÃO POR ERA")
+    print("=" * 65)
+    for era in df_top_injuries['era_group'].unique():
+        print(f"\n🔹 {era.upper()}:")
+        sub_df = df_top_injuries[df_top_injuries['era_group'] == era].head(10)
+        print(sub_df[['injury_category', 'total_cases']].to_string(index=False))
+    print("=" * 65)
 
 if __name__ == "__main__":
     generate_plots_and_tables()

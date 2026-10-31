@@ -7,8 +7,9 @@ Pipeline end-to-end de engenharia de dados, analytics e machine learning constru
 ## 📌 Principais Conclusões e Insights dos Dados
 
 1. **A Explosão de Lesões na Era Pace & Space:** Os dados históricos mostram um salto expressivo nos registros de lesões teciduais nas décadas de 2010 e 2020 (**> 1.200 registros/década**) em comparação com as eras anteriores (~500 registros/década).
-2. **Picos de ACWR como Gatilho Principal:** **91,1%** das lesões por sobrecarga muscular analisadas ocorreram quando a Razão Carga Aguda : Carga Crônica (**ACWR**) do jogador ultrapassou **1,5** — o limiar crítico onde a fadiga de curto prazo supera o condicionamento crônico.
-3. **Carga Espacial e Frenagens de Alta Intensidade:** O aumento do volume de arremessos de 3 pontos (`fg3a` subindo de 1.5 para 7.0+ por jogo) expandiu a área de quadra que os atletas precisam defender, multiplicando acelerações e desacelerações que elevam a fadiga muscular, independentemente da minutagem total jogada.
+2. **Mudança no Perfil Anatômico (Garrafão vs. Perímetro):** Nas eras de 1980–1990, as lesões concentravam-se em **entorses articulares (tornozelo) e contusões traumáticas de contato**. Na era moderna, o perfil migrou para **lesões miotendíneas por sobrecarga em cadeias de alta desaceleração (Posterior de Coxa/Hamstring, Virilha/Adutores e Tendão Patelar)**.
+3. **Picos de ACWR como Gatilho Principal:** **91,1%** das lesões por sobrecarga muscular analisadas ocorreram quando a Razão Carga Aguda : Carga Crônica (**ACWR**) do jogador ultrapassou **1,5**.
+4. **Carga Espacial e Frenagens de Alta Intensidade:** O volume de arremessos de 3 pontos (`fg3a` subindo de 1.5 para 7.0+ por jogo) forçou os atletas a cobrirem maior raio de quadra, multiplicando picos de fadiga tecidual.
 
 ---
 
@@ -16,16 +17,23 @@ Pipeline end-to-end de engenharia de dados, analytics e machine learning constru
 
 O projeto utiliza a arquitetura **Medallion** implementada no **DuckDB** e transformada via **dbt (data build tool)**:
 
-* **Camada Bronze:** Dados brutos de game logs, telemetria/tracking de jogadores (distância e velocidade) e histórico de lesões (~40k partidas e 3.300+ lesões).
-* **Camada Silver:** Taxonomia padronizada de lesões (*Overuse/Soft Tissue* vs. *Trauma/Contact*), janelas móveis de carga aguda (7 dias), carga crônica (28 dias) e flags de jogos em dias consecutivos (*Back-to-Back*).
+* **Camada Bronze:** Dados brutos de game logs, telemetria/tracking de jogadores e histórico de lesões (~40k partidas e 3.300+ lesões).
+* **Camada Silver:** Taxonomia padronizada de lesões (*Overuse/Soft Tissue* vs. *Trauma/Contact*), janelas móveis de carga aguda (7 dias), carga crônica (28 dias) e flags de *Back-to-Back*.
 * **Camada Gold:** Marts analíticos ligando métricas macro da liga (*Pace e Espaçamento*) com picos micro de ACWR dos atletas.
 
 ---
 
 ## 📊 Evidências Estatísticas e Visualizações
 
-### 1. Pace vs. Lesões por Sobrecarga (1980–2024)
-Com a aceleração do ritmo de jogo (`pace`) e o espaçamento em quadra, a incidência de lesões teciduais cresceu de forma diretamente proporcional:
+### 1. Perfil e Distribuição Anatômica por Era (1980–1999 vs. 2010–2024)
+Comparativo das categorias e locais de lesão predominantes entre as eras de jogo físico no garrafão e a era de espaçamento e mobilidade contínua:
+
+![Top Lesões por Era](reports/figures/top_injuries_by_era.png)
+
+---
+
+### 2. Pace vs. Lesões por Sobrecarga (1980–2024)
+Com a aceleração do ritmo de jogo (`pace`) e o espaçamento em quadra, a incidência de lesões teciduais cresceu proporcionalmente:
 
 ![Pace vs Overuse Injuries](reports/figures/pace_vs_overuse_injuries.png)
 
@@ -33,13 +41,13 @@ Com a aceleração do ritmo de jogo (`pace`) e o espaçamento em quadra, a incid
 | :--- | :---: | :---: | :---: | :---: |
 | **1980s (Era de Contato Físico)** | 101.0 | 1.5 | 441 | 88.2% |
 | **1990s (Era do Hand-Check Defensivo)** | 91.5 | 3.0 | 427 | 85.4% |
-| **2000s (Isolamento e Media Distância)** | 91.5 | 3.0 | 433 | 86.6% |
+| **2000s (Isolamento e Média Distância)** | 91.5 | 3.0 | 433 | 86.6% |
 | **2010s (Explosão do Pace & Space)** | 99.0 | 7.0 | 1.047 | 87.2% |
 | **2020s (Carga Espacial e Intensidade)** | 99.0 | 7.0 | 532 | 88.7% |
 
 ---
 
-### 2. Distribuição do ACWR (Acute:Chronic Workload Ratio)
+### 3. Distribuição do ACWR (Acute:Chronic Workload Ratio)
 Distribuição das taxas de sobrecarga dos atletas no exato momento da ocorrência da lesão. Valores acima de `1.5` representam a zona de risco crítico:
 
 ![ACWR Distribution](reports/figures/acwr_distribution.png)
@@ -52,11 +60,9 @@ Distribuição das taxas de sobrecarga dos atletas no exato momento da ocorrênc
 
 ## 🤖 Pipeline de Machine Learning e Auditoria de Regras
 
-Para evitar viés e alucinação estatística, o pipeline combina aprendizado não supervisionado com classificação supervisionada e auditoria transparente por árvore de decisão:
-
-1. **Isolation Forest (Não Supervisionado):** Identifica anomalias extremas de carga biomecânica sem dependência de rótulos (identificou 1.985 partidas anômalas).
-2. **Random Forest Classifier (Supervisionado):** Ajustado com `class_weight='balanced'` para priorizar a **Sensibilidade (Recall)** na detecção de atletas sob risco.
-3. **Auditor de Regras (Árvore de Decisão Explicável):** Extrai regras condicionais diretas (ex: risco elevado ativado quando `fg3a > 4.50`, `pace > 94.85` e a carga acumulada de 28 dias atinge limites de saturação).
+1. **Isolation Forest (Não Supervisionado):** Identifica anomalias extremas de carga biomecânica sem dependência de rótulos (1.985 partidas anômalas).
+2. **Random Forest Classifier (Supervisionado):** Ajustado com `class_weight='balanced'` para priorizar a **Sensibilidade (Recall)** na detecção de risco.
+3. **Auditor de Regras (Árvore de Decisão Explicável):** Extrai regras condicionais diretas indicando gatilhos de saturação de carga.
 
 ![Matriz de Confusão](reports/figures/confusion_matrix.png)
 
