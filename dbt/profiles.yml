@@ -1,0 +1,7 @@
+﻿nba_injury_analytics:
+  outputs:
+    dev:
+      type: duckdb
+      path: '../warehouse/nba_injuries.duckdb'
+      threads: 4
+  target: dev

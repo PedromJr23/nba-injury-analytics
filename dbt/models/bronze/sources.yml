@@ -1,0 +1,9 @@
+﻿version: 2
+
+sources:
+  - name: bronze
+    schema: bronze
+    tables:
+      - name: raw_injuries
+      - name: raw_game_logs
+      - name: raw_player_tracking

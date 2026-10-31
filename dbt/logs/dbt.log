@@ -1,0 +1,1314 @@
+[0m19:13:14.769846 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DFFA06B4D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DFF70F7250>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DFFB04F9D0>]}
+
+
+============================== 19:13:14.782844 | 2e5a4188-5304-4462-b61f-f7ff22ef1d93 ==============================
+[0m19:13:14.782844 [info ] [MainThread]: Running with dbt=1.9.10
+[0m19:13:14.784178 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'printer_width': '80', 'write_json': 'True', 'empty': 'False', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'log_format': 'default', 'debug': 'False', 'fail_fast': 'False', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': '.', 'invocation_command': 'dbt run --profiles-dir .', 'use_colors': 'True', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'log_path': 'C:\\Users\\pedro\\Downloads\\nba-injury-analytics\\dbt\\logs'}
+[0m19:13:15.708105 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '2e5a4188-5304-4462-b61f-f7ff22ef1d93', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DFFA55AB10>]}
+[0m19:13:15.948686 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '2e5a4188-5304-4462-b61f-f7ff22ef1d93', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DFFAEE2AD0>]}
+[0m19:13:15.957189 [info ] [MainThread]: Registered adapter: duckdb=1.11.1
+[0m19:13:16.869682 [debug] [MainThread]: checksum: c40cca0353c9a9b4dbd2a57cdc3e2440f5c9a71a795694b25a51e704baaf554e, vars: {}, profile: , target: , version: 1.9.10
+[0m19:13:16.871277 [info ] [MainThread]: Unable to do partial parsing because saved manifest not found. Starting full parse.
+[0m19:13:16.871915 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '2e5a4188-5304-4462-b61f-f7ff22ef1d93', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DFFC731550>]}
+[0m19:13:18.905525 [warn ] [MainThread]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 2 unused configuration paths:
+- models.nba_injury_analytics.bronze
+- models.nba_injury_analytics.gold
+[0m19:13:18.920122 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '2e5a4188-5304-4462-b61f-f7ff22ef1d93', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DFFC61CF50>]}
+[0m19:13:19.043697 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Users\pedro\Downloads\nba-injury-analytics\dbt\target\manifest.json
+[0m19:13:19.047780 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Users\pedro\Downloads\nba-injury-analytics\dbt\target\semantic_manifest.json
+[0m19:13:19.154307 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '2e5a4188-5304-4462-b61f-f7ff22ef1d93', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DFFCE4AF90>]}
+[0m19:13:19.154891 [info ] [MainThread]: Found 1 model, 3 sources, 511 macros
+[0m19:13:19.155420 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '2e5a4188-5304-4462-b61f-f7ff22ef1d93', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DFFCE67EE0>]}
+[0m19:13:19.157356 [info ] [MainThread]: 
+[0m19:13:19.157906 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m19:13:19.158426 [info ] [MainThread]: 
+[0m19:13:19.159179 [debug] [MainThread]: Acquiring new duckdb connection 'master'
+[0m19:13:19.160671 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_nba_injuries'
+[0m19:13:19.592641 [debug] [ThreadPool]: Using duckdb connection "list_nba_injuries"
+[0m19:13:19.593406 [debug] [ThreadPool]: On list_nba_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "connection_name": "list_nba_injuries"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"nba_injuries"'
+    
+  
+  
+[0m19:13:19.594069 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m19:13:19.667284 [debug] [ThreadPool]: SQL status: OK in 0.073 seconds
+[0m19:13:19.669167 [debug] [ThreadPool]: On list_nba_injuries: Close
+[0m19:13:19.670203 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_nba_injuries, now create_nba_injuries_main_silver)
+[0m19:13:19.670958 [debug] [ThreadPool]: Creating schema "database: "nba_injuries"
+schema: "main_silver"
+"
+[0m19:13:19.680335 [debug] [ThreadPool]: Using duckdb connection "create_nba_injuries_main_silver"
+[0m19:13:19.680988 [debug] [ThreadPool]: On create_nba_injuries_main_silver: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "connection_name": "create_nba_injuries_main_silver"} */
+
+    
+        select type from duckdb_databases()
+        where lower(database_name)='nba_injuries'
+        and type != 'duckdb'
+    
+  
+[0m19:13:19.681442 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m19:13:19.685061 [debug] [ThreadPool]: SQL status: OK in 0.004 seconds
+[0m19:13:19.686938 [debug] [ThreadPool]: Using duckdb connection "create_nba_injuries_main_silver"
+[0m19:13:19.687494 [debug] [ThreadPool]: On create_nba_injuries_main_silver: BEGIN
+[0m19:13:19.689664 [debug] [ThreadPool]: SQL status: OK in 0.002 seconds
+[0m19:13:19.690136 [debug] [ThreadPool]: Using duckdb connection "create_nba_injuries_main_silver"
+[0m19:13:19.690567 [debug] [ThreadPool]: On create_nba_injuries_main_silver: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "connection_name": "create_nba_injuries_main_silver"} */
+
+    
+    
+        create schema if not exists "nba_injuries"."main_silver"
+    
+[0m19:13:19.691784 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m19:13:19.692972 [debug] [ThreadPool]: On create_nba_injuries_main_silver: COMMIT
+[0m19:13:19.693436 [debug] [ThreadPool]: Using duckdb connection "create_nba_injuries_main_silver"
+[0m19:13:19.693840 [debug] [ThreadPool]: On create_nba_injuries_main_silver: COMMIT
+[0m19:13:19.700846 [debug] [ThreadPool]: SQL status: OK in 0.006 seconds
+[0m19:13:19.701398 [debug] [ThreadPool]: On create_nba_injuries_main_silver: Close
+[0m19:13:19.703541 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_nba_injuries_main_silver'
+[0m19:13:19.710711 [debug] [ThreadPool]: Using duckdb connection "list_nba_injuries_main_silver"
+[0m19:13:19.711223 [debug] [ThreadPool]: On list_nba_injuries_main_silver: BEGIN
+[0m19:13:19.711686 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m19:13:19.712636 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m19:13:19.713246 [debug] [ThreadPool]: Using duckdb connection "list_nba_injuries_main_silver"
+[0m19:13:19.713691 [debug] [ThreadPool]: On list_nba_injuries_main_silver: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "connection_name": "list_nba_injuries_main_silver"} */
+select
+      'nba_injuries' as database,
+      table_name as name,
+      table_schema as schema,
+      CASE table_type
+        WHEN 'BASE TABLE' THEN 'table'
+        WHEN 'VIEW' THEN 'view'
+        WHEN 'LOCAL TEMPORARY' THEN 'table'
+        END as type
+    from system.information_schema.tables
+    where lower(table_schema) = 'main_silver'
+    and lower(table_catalog) = 'nba_injuries'
+  
+[0m19:13:19.751033 [debug] [ThreadPool]: SQL status: OK in 0.037 seconds
+[0m19:13:19.752651 [debug] [ThreadPool]: On list_nba_injuries_main_silver: ROLLBACK
+[0m19:13:19.753491 [debug] [ThreadPool]: On list_nba_injuries_main_silver: Close
+[0m19:13:19.754491 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '2e5a4188-5304-4462-b61f-f7ff22ef1d93', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DFFCCC2090>]}
+[0m19:13:19.755079 [debug] [MainThread]: Using duckdb connection "master"
+[0m19:13:19.755484 [debug] [MainThread]: On master: BEGIN
+[0m19:13:19.755855 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m19:13:19.756584 [debug] [MainThread]: SQL status: OK in 0.001 seconds
+[0m19:13:19.756991 [debug] [MainThread]: On master: COMMIT
+[0m19:13:19.757380 [debug] [MainThread]: Using duckdb connection "master"
+[0m19:13:19.757754 [debug] [MainThread]: On master: COMMIT
+[0m19:13:19.758503 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m19:13:19.759008 [debug] [MainThread]: On master: Close
+[0m19:13:19.770352 [debug] [Thread-1 (]: Began running node model.nba_injury_analytics.stg_injuries
+[0m19:13:19.771094 [info ] [Thread-1 (]: 1 of 1 START sql table model main_silver.stg_injuries .......................... [RUN]
+[0m19:13:19.771873 [debug] [Thread-1 (]: Acquiring new duckdb connection 'model.nba_injury_analytics.stg_injuries'
+[0m19:13:19.772348 [debug] [Thread-1 (]: Began compiling node model.nba_injury_analytics.stg_injuries
+[0m19:13:19.781436 [debug] [Thread-1 (]: Writing injected SQL for node "model.nba_injury_analytics.stg_injuries"
+[0m19:13:19.785271 [debug] [Thread-1 (]: Began executing node model.nba_injury_analytics.stg_injuries
+[0m19:13:19.787901 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:13:19.788438 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_injuries"} */
+select database_name, type from duckdb_databases()
+[0m19:13:19.788888 [debug] [Thread-1 (]: Opening a new connection, currently in state init
+[0m19:13:19.790444 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m19:13:19.792491 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:13:19.793051 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_injuries"} */
+
+                    select table_name, constraint_type from duckdb_constraints()
+                    where lower(database_name) = lower('nba_injuries')
+                      and lower(schema_name) = lower('main_silver')
+                      and constraint_type in ('PRIMARY KEY', 'UNIQUE', 'FOREIGN KEY')
+                    
+[0m19:13:19.797425 [debug] [Thread-1 (]: SQL status: OK in 0.004 seconds
+[0m19:13:19.885420 [debug] [Thread-1 (]: Writing runtime sql for node "model.nba_injury_analytics.stg_injuries"
+[0m19:13:19.890535 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:13:19.891090 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: BEGIN
+[0m19:13:19.891914 [debug] [Thread-1 (]: SQL status: OK in 0.000 seconds
+[0m19:13:19.892407 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:13:19.892932 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_injuries"} */
+
+    
+
+    create  table
+      "nba_injuries"."main_silver"."stg_injuries__dbt_tmp"
+  
+    
+    as (
+      ﻿WITH raw_data AS (
+    SELECT 
+        injury_id,
+        player_name,
+        injury_date,
+        season,
+        team,
+        notes,
+        games_missed_estimate
+    FROM "nba_injuries"."bronze"."raw_injuries"
+)
+
+SELECT
+    injury_id,
+    player_name,
+    injury_date,
+    season,
+    team,
+    notes,
+    
+    -- Categorização da Lesão (Sobrecarga Tecidual vs. Trauma de Contato)
+    CASE 
+        WHEN LOWER(notes) LIKE '%strain%' 
+          OR LOWER(notes) LIKE '%sore%' 
+          OR LOWER(notes) LIKE '%tendinitis%' 
+          OR LOWER(notes) LIKE '%calf%' 
+          OR LOWER(notes) LIKE '%hamstring%' 
+          OR LOWER(notes) LIKE '%groin%' 
+          OR LOWER(notes) LIKE '%rest%' 
+          OR LOWER(notes) LIKE '%load management%'
+        THEN 'Overuse / Soft Tissue'
+        
+        WHEN LOWER(notes) LIKE '%fracture%' 
+          OR LOWER(notes) LIKE '%surgery%' 
+          OR LOWER(notes) LIKE '%sprain%' 
+          OR LOWER(notes) LIKE '%concussion%' 
+          OR LOWER(notes) LIKE '%torn%'
+        THEN 'Trauma / Contact'
+        
+        ELSE 'Uncategorized / Other'
+    END AS injury_category,
+    
+    COALESCE(games_missed_estimate, 1) AS games_missed
+FROM raw_data
+    );
+    
+  
+[0m19:13:19.910438 [debug] [Thread-1 (]: SQL status: OK in 0.017 seconds
+[0m19:13:19.919134 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:13:19.919949 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_injuries"} */
+alter table "nba_injuries"."main_silver"."stg_injuries__dbt_tmp" rename to "stg_injuries"
+[0m19:13:19.923421 [debug] [Thread-1 (]: SQL status: OK in 0.003 seconds
+[0m19:13:19.945395 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: COMMIT
+[0m19:13:19.945956 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:13:19.946418 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: COMMIT
+[0m19:13:19.956852 [debug] [Thread-1 (]: SQL status: OK in 0.010 seconds
+[0m19:13:19.963343 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:13:19.963877 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_injuries"} */
+
+      drop table if exists "nba_injuries"."main_silver"."stg_injuries__dbt_backup" cascade
+    
+[0m19:13:19.965572 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m19:13:19.970307 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: Close
+[0m19:13:19.975560 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '2e5a4188-5304-4462-b61f-f7ff22ef1d93', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DFFD258890>]}
+[0m19:13:19.976428 [info ] [Thread-1 (]: 1 of 1 OK created sql table model main_silver.stg_injuries ..................... [[32mOK[0m in 0.20s]
+[0m19:13:19.977280 [debug] [Thread-1 (]: Finished running node model.nba_injury_analytics.stg_injuries
+[0m19:13:19.979058 [debug] [MainThread]: Using duckdb connection "master"
+[0m19:13:19.979515 [debug] [MainThread]: On master: BEGIN
+[0m19:13:19.979921 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m19:13:19.980728 [debug] [MainThread]: SQL status: OK in 0.001 seconds
+[0m19:13:19.981134 [debug] [MainThread]: On master: COMMIT
+[0m19:13:19.981513 [debug] [MainThread]: Using duckdb connection "master"
+[0m19:13:19.981873 [debug] [MainThread]: On master: COMMIT
+[0m19:13:19.982861 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m19:13:19.983624 [debug] [MainThread]: On master: Close
+[0m19:13:19.984545 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m19:13:19.985483 [debug] [MainThread]: Connection 'create_nba_injuries_main_silver' was properly closed.
+[0m19:13:19.985868 [debug] [MainThread]: Connection 'list_nba_injuries_main_silver' was properly closed.
+[0m19:13:19.986207 [debug] [MainThread]: Connection 'model.nba_injury_analytics.stg_injuries' was properly closed.
+[0m19:13:19.986601 [info ] [MainThread]: 
+[0m19:13:19.987188 [info ] [MainThread]: Finished running 1 table model in 0 hours 0 minutes and 0.83 seconds (0.83s).
+[0m19:13:19.988145 [debug] [MainThread]: Command end result
+[0m19:13:20.015429 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Users\pedro\Downloads\nba-injury-analytics\dbt\target\manifest.json
+[0m19:13:20.019417 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Users\pedro\Downloads\nba-injury-analytics\dbt\target\semantic_manifest.json
+[0m19:13:20.030773 [debug] [MainThread]: Wrote artifact RunExecutionResult to C:\Users\pedro\Downloads\nba-injury-analytics\dbt\target\run_results.json
+[0m19:13:20.031378 [info ] [MainThread]: 
+[0m19:13:20.031985 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m19:13:20.032549 [info ] [MainThread]: 
+[0m19:13:20.034055 [info ] [MainThread]: Done. PASS=1 WARN=0 ERROR=0 SKIP=0 TOTAL=1
+[0m19:13:20.036245 [debug] [MainThread]: Command `dbt run` succeeded at 19:13:20.036033 after 5.77 seconds
+[0m19:13:20.036831 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DFFD2639D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DFFCEB72F0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001DFFCDEB2D0>]}
+[0m19:13:20.037450 [debug] [MainThread]: Flushing usage events
+[0m19:13:21.032995 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m19:15:27.344344 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001608E2DB4D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001608B397250>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001608F2BF9D0>]}
+
+
+============================== 19:15:27.353390 | 3f1a83ce-63a8-4fd7-b430-b23463b5d7ba ==============================
+[0m19:15:27.353390 [info ] [MainThread]: Running with dbt=1.9.10
+[0m19:15:27.354747 [debug] [MainThread]: running dbt with arguments {'version_check': 'True', 'no_print': 'None', 'static_parser': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'printer_width': '80', 'write_json': 'True', 'empty': 'False', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'log_format': 'default', 'debug': 'False', 'fail_fast': 'False', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': '.', 'indirect_selection': 'eager', 'invocation_command': 'dbt run --profiles-dir .', 'use_colors': 'True', 'use_experimental_parser': 'False', 'log_path': 'C:\\Users\\pedro\\Downloads\\nba-injury-analytics\\dbt\\logs'}
+[0m19:15:28.241849 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '3f1a83ce-63a8-4fd7-b430-b23463b5d7ba', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001608E7CAB10>]}
+[0m19:15:28.450841 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '3f1a83ce-63a8-4fd7-b430-b23463b5d7ba', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001608F152AD0>]}
+[0m19:15:28.457638 [info ] [MainThread]: Registered adapter: duckdb=1.11.1
+[0m19:15:30.120920 [debug] [MainThread]: checksum: c40cca0353c9a9b4dbd2a57cdc3e2440f5c9a71a795694b25a51e704baaf554e, vars: {}, profile: , target: , version: 1.9.10
+[0m19:15:30.628258 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 2 files added, 0 files changed.
+[0m19:15:30.629736 [debug] [MainThread]: Partial parsing: added file: nba_injury_analytics://models\silver\stg_player_workload.sql
+[0m19:15:30.635635 [debug] [MainThread]: Partial parsing: added file: nba_injury_analytics://models\silver\stg_player_tracking.sql
+[0m19:15:32.179320 [warn ] [MainThread]: [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+There are 2 unused configuration paths:
+- models.nba_injury_analytics.bronze
+- models.nba_injury_analytics.gold
+[0m19:15:32.254112 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '3f1a83ce-63a8-4fd7-b430-b23463b5d7ba', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016090903750>]}
+[0m19:15:32.514372 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Users\pedro\Downloads\nba-injury-analytics\dbt\target\manifest.json
+[0m19:15:32.528494 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Users\pedro\Downloads\nba-injury-analytics\dbt\target\semantic_manifest.json
+[0m19:15:32.673184 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '3f1a83ce-63a8-4fd7-b430-b23463b5d7ba', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016090D463F0>]}
+[0m19:15:32.674438 [info ] [MainThread]: Found 3 models, 3 sources, 511 macros
+[0m19:15:32.676000 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '3f1a83ce-63a8-4fd7-b430-b23463b5d7ba', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016090D5D710>]}
+[0m19:15:32.708387 [info ] [MainThread]: 
+[0m19:15:32.711278 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m19:15:32.714010 [info ] [MainThread]: 
+[0m19:15:32.721626 [debug] [MainThread]: Acquiring new duckdb connection 'master'
+[0m19:15:32.783999 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_nba_injuries'
+[0m19:15:34.114290 [debug] [ThreadPool]: Using duckdb connection "list_nba_injuries"
+[0m19:15:34.119398 [debug] [ThreadPool]: On list_nba_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "connection_name": "list_nba_injuries"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"nba_injuries"'
+    
+  
+  
+[0m19:15:34.121455 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m19:15:34.334477 [debug] [ThreadPool]: SQL status: OK in 0.213 seconds
+[0m19:15:34.341706 [debug] [ThreadPool]: On list_nba_injuries: Close
+[0m19:15:34.352016 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_nba_injuries, now create_nba_injuries_main_silver)
+[0m19:15:34.360783 [debug] [ThreadPool]: Creating schema "database: "nba_injuries"
+schema: "main_silver"
+"
+[0m19:15:34.405277 [debug] [ThreadPool]: Using duckdb connection "create_nba_injuries_main_silver"
+[0m19:15:34.406343 [debug] [ThreadPool]: On create_nba_injuries_main_silver: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "connection_name": "create_nba_injuries_main_silver"} */
+
+    
+        select type from duckdb_databases()
+        where lower(database_name)='nba_injuries'
+        and type != 'duckdb'
+    
+  
+[0m19:15:34.411334 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m19:15:34.421757 [debug] [ThreadPool]: SQL status: OK in 0.010 seconds
+[0m19:15:34.428845 [debug] [ThreadPool]: Using duckdb connection "create_nba_injuries_main_silver"
+[0m19:15:34.430001 [debug] [ThreadPool]: On create_nba_injuries_main_silver: BEGIN
+[0m19:15:34.431842 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m19:15:34.432786 [debug] [ThreadPool]: Using duckdb connection "create_nba_injuries_main_silver"
+[0m19:15:34.435992 [debug] [ThreadPool]: On create_nba_injuries_main_silver: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "connection_name": "create_nba_injuries_main_silver"} */
+
+    
+    
+        create schema if not exists "nba_injuries"."main_silver"
+    
+[0m19:15:34.439540 [debug] [ThreadPool]: SQL status: OK in 0.002 seconds
+[0m19:15:34.442657 [debug] [ThreadPool]: On create_nba_injuries_main_silver: COMMIT
+[0m19:15:34.443659 [debug] [ThreadPool]: Using duckdb connection "create_nba_injuries_main_silver"
+[0m19:15:34.445142 [debug] [ThreadPool]: On create_nba_injuries_main_silver: COMMIT
+[0m19:15:34.446773 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m19:15:34.447728 [debug] [ThreadPool]: On create_nba_injuries_main_silver: Close
+[0m19:15:34.452767 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_nba_injuries_main_silver'
+[0m19:15:34.470478 [debug] [ThreadPool]: Using duckdb connection "list_nba_injuries_main_silver"
+[0m19:15:34.471528 [debug] [ThreadPool]: On list_nba_injuries_main_silver: BEGIN
+[0m19:15:34.472408 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m19:15:34.474394 [debug] [ThreadPool]: SQL status: OK in 0.002 seconds
+[0m19:15:34.475498 [debug] [ThreadPool]: Using duckdb connection "list_nba_injuries_main_silver"
+[0m19:15:34.476496 [debug] [ThreadPool]: On list_nba_injuries_main_silver: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "connection_name": "list_nba_injuries_main_silver"} */
+select
+      'nba_injuries' as database,
+      table_name as name,
+      table_schema as schema,
+      CASE table_type
+        WHEN 'BASE TABLE' THEN 'table'
+        WHEN 'VIEW' THEN 'view'
+        WHEN 'LOCAL TEMPORARY' THEN 'table'
+        END as type
+    from system.information_schema.tables
+    where lower(table_schema) = 'main_silver'
+    and lower(table_catalog) = 'nba_injuries'
+  
+[0m19:15:34.544436 [debug] [ThreadPool]: SQL status: OK in 0.067 seconds
+[0m19:15:34.548561 [debug] [ThreadPool]: On list_nba_injuries_main_silver: ROLLBACK
+[0m19:15:34.550411 [debug] [ThreadPool]: On list_nba_injuries_main_silver: Close
+[0m19:15:34.553452 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '3f1a83ce-63a8-4fd7-b430-b23463b5d7ba', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016090F4A750>]}
+[0m19:15:34.554857 [debug] [MainThread]: Using duckdb connection "master"
+[0m19:15:34.555757 [debug] [MainThread]: On master: BEGIN
+[0m19:15:34.556531 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m19:15:34.558097 [debug] [MainThread]: SQL status: OK in 0.002 seconds
+[0m19:15:34.558972 [debug] [MainThread]: On master: COMMIT
+[0m19:15:34.559922 [debug] [MainThread]: Using duckdb connection "master"
+[0m19:15:34.560592 [debug] [MainThread]: On master: COMMIT
+[0m19:15:34.561906 [debug] [MainThread]: SQL status: OK in 0.001 seconds
+[0m19:15:34.562745 [debug] [MainThread]: On master: Close
+[0m19:15:34.580390 [debug] [Thread-2 (]: Began running node model.nba_injury_analytics.stg_player_tracking
+[0m19:15:34.581511 [debug] [Thread-1 (]: Began running node model.nba_injury_analytics.stg_injuries
+[0m19:15:34.582516 [debug] [Thread-3 (]: Began running node model.nba_injury_analytics.stg_player_workload
+[0m19:15:34.585120 [info ] [Thread-2 (]: 2 of 3 START sql table model main_silver.stg_player_tracking ................... [RUN]
+[0m19:15:34.587093 [info ] [Thread-1 (]: 1 of 3 START sql table model main_silver.stg_injuries .......................... [RUN]
+[0m19:15:34.590522 [debug] [Thread-2 (]: Acquiring new duckdb connection 'model.nba_injury_analytics.stg_player_tracking'
+[0m19:15:34.588902 [info ] [Thread-3 (]: 3 of 3 START sql table model main_silver.stg_player_workload ................... [RUN]
+[0m19:15:34.592202 [debug] [Thread-1 (]: Acquiring new duckdb connection 'model.nba_injury_analytics.stg_injuries'
+[0m19:15:34.593083 [debug] [Thread-2 (]: Began compiling node model.nba_injury_analytics.stg_player_tracking
+[0m19:15:34.594069 [debug] [Thread-3 (]: Acquiring new duckdb connection 'model.nba_injury_analytics.stg_player_workload'
+[0m19:15:34.595015 [debug] [Thread-1 (]: Began compiling node model.nba_injury_analytics.stg_injuries
+[0m19:15:34.623785 [debug] [Thread-2 (]: Writing injected SQL for node "model.nba_injury_analytics.stg_player_tracking"
+[0m19:15:34.625001 [debug] [Thread-3 (]: Began compiling node model.nba_injury_analytics.stg_player_workload
+[0m19:15:34.634917 [debug] [Thread-1 (]: Writing injected SQL for node "model.nba_injury_analytics.stg_injuries"
+[0m19:15:34.643721 [debug] [Thread-3 (]: Writing injected SQL for node "model.nba_injury_analytics.stg_player_workload"
+[0m19:15:34.647036 [debug] [Thread-2 (]: Began executing node model.nba_injury_analytics.stg_player_tracking
+[0m19:15:34.652366 [debug] [Thread-3 (]: Began executing node model.nba_injury_analytics.stg_player_workload
+[0m19:15:34.658082 [debug] [Thread-3 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_workload"
+[0m19:15:34.660289 [debug] [Thread-1 (]: Began executing node model.nba_injury_analytics.stg_injuries
+[0m19:15:34.661338 [debug] [Thread-3 (]: On model.nba_injury_analytics.stg_player_workload: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_player_workload"} */
+select database_name, type from duckdb_databases()
+[0m19:15:34.665960 [debug] [Thread-3 (]: Opening a new connection, currently in state init
+[0m19:15:34.670898 [debug] [Thread-3 (]: SQL status: OK in 0.005 seconds
+[0m19:15:34.676026 [debug] [Thread-3 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_workload"
+[0m19:15:34.677151 [debug] [Thread-3 (]: On model.nba_injury_analytics.stg_player_workload: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_player_workload"} */
+
+                    select table_name, constraint_type from duckdb_constraints()
+                    where lower(database_name) = lower('nba_injuries')
+                      and lower(schema_name) = lower('main_silver')
+                      and constraint_type in ('PRIMARY KEY', 'UNIQUE', 'FOREIGN KEY')
+                    
+[0m19:15:34.680997 [debug] [Thread-3 (]: SQL status: OK in 0.003 seconds
+[0m19:15:34.996454 [debug] [Thread-2 (]: Writing runtime sql for node "model.nba_injury_analytics.stg_player_tracking"
+[0m19:15:35.008705 [debug] [Thread-1 (]: Writing runtime sql for node "model.nba_injury_analytics.stg_injuries"
+[0m19:15:35.022406 [debug] [Thread-3 (]: Writing runtime sql for node "model.nba_injury_analytics.stg_player_workload"
+[0m19:15:35.024851 [debug] [Thread-2 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_tracking"
+[0m19:15:35.026046 [debug] [Thread-2 (]: On model.nba_injury_analytics.stg_player_tracking: BEGIN
+[0m19:15:35.027172 [debug] [Thread-2 (]: Opening a new connection, currently in state init
+[0m19:15:35.028561 [debug] [Thread-3 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_workload"
+[0m19:15:35.029432 [debug] [Thread-3 (]: On model.nba_injury_analytics.stg_player_workload: BEGIN
+[0m19:15:35.030399 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:15:35.031454 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: BEGIN
+[0m19:15:35.032378 [debug] [Thread-1 (]: Opening a new connection, currently in state init
+[0m19:15:35.033228 [debug] [Thread-2 (]: SQL status: OK in 0.006 seconds
+[0m19:15:35.034388 [debug] [Thread-3 (]: SQL status: OK in 0.003 seconds
+[0m19:15:35.035866 [debug] [Thread-2 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_tracking"
+[0m19:15:35.037134 [debug] [Thread-3 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_workload"
+[0m19:15:35.038503 [debug] [Thread-1 (]: SQL status: OK in 0.006 seconds
+[0m19:15:35.039995 [debug] [Thread-2 (]: On model.nba_injury_analytics.stg_player_tracking: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_player_tracking"} */
+
+    
+
+    create  table
+      "nba_injuries"."main_silver"."stg_player_tracking__dbt_tmp"
+  
+    
+    as (
+      ﻿WITH raw_tracking AS (
+    SELECT
+        game_id,
+        player_id,
+        player_name,
+        game_date,
+        season,
+        distance_miles,
+        avg_speed_mph,
+        fast_break_points,
+        touches
+    FROM "nba_injuries"."bronze"."raw_player_tracking"
+)
+
+SELECT
+    game_id,
+    player_id,
+    player_name,
+    game_date,
+    season,
+    distance_miles,
+    avg_speed_mph,
+    
+    -- Estimativa de Carga Mecânica (Distância x Velocidade Médio)
+    ROUND(distance_miles * avg_speed_mph, 2) AS mechanical_workload_score,
+    fast_break_points,
+    touches
+FROM raw_tracking
+    );
+    
+  
+[0m19:15:35.041461 [debug] [Thread-3 (]: On model.nba_injury_analytics.stg_player_workload: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_player_workload"} */
+
+    
+
+    create  table
+      "nba_injuries"."main_silver"."stg_player_workload__dbt_tmp"
+  
+    
+    as (
+      ﻿WITH base_game_logs AS (
+    SELECT
+        game_id,
+        player_id,
+        player_name,
+        game_date,
+        season,
+        team,
+        opponent,
+        is_home,
+        minutes_played,
+        pace,
+        fg3a
+    FROM "nba_injuries"."bronze"."raw_game_logs"
+)
+
+SELECT
+    game_id,
+    player_id,
+    player_name,
+    game_date,
+    season,
+    team,
+    opponent,
+    is_home,
+    minutes_played,
+    pace,
+    fg3a,
+    
+    -- Carga Aguda: Minutos jogados nos últimos 7 dias
+    SUM(minutes_played) OVER (
+        PARTITION BY player_id 
+        ORDER BY game_date 
+        RANGE BETWEEN INTERVAL '6 DAYS' PRECEDING AND CURRENT ROW
+    ) AS acute_load_minutes_7d,
+    
+    -- Carga Crônica: Média móvel de minutos nos últimos 28 dias
+    AVG(minutes_played) OVER (
+        PARTITION BY player_id 
+        ORDER BY game_date 
+        RANGE BETWEEN INTERVAL '27 DAYS' PRECEDING AND CURRENT ROW
+    ) * 4 AS chronic_load_minutes_28d,
+    
+    -- Flag de Back-to-Back (jogo em dias consecutivos)
+    CASE 
+        WHEN LAG(game_date, 1) OVER (PARTITION BY player_id ORDER BY game_date) = game_date - INTERVAL '1 DAY'
+        THEN 1 ELSE 0 
+    END AS is_back_to_back
+FROM base_game_logs
+    );
+    
+  
+[0m19:15:35.042450 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:15:35.043860 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_injuries"} */
+
+    
+
+    create  table
+      "nba_injuries"."main_silver"."stg_injuries__dbt_tmp"
+  
+    
+    as (
+      ﻿WITH raw_data AS (
+    SELECT 
+        injury_id,
+        player_name,
+        injury_date,
+        season,
+        team,
+        notes,
+        games_missed_estimate
+    FROM "nba_injuries"."bronze"."raw_injuries"
+)
+
+SELECT
+    injury_id,
+    player_name,
+    injury_date,
+    season,
+    team,
+    notes,
+    
+    -- Categorização da Lesão (Sobrecarga Tecidual vs. Trauma de Contato)
+    CASE 
+        WHEN LOWER(notes) LIKE '%strain%' 
+          OR LOWER(notes) LIKE '%sore%' 
+          OR LOWER(notes) LIKE '%tendinitis%' 
+          OR LOWER(notes) LIKE '%calf%' 
+          OR LOWER(notes) LIKE '%hamstring%' 
+          OR LOWER(notes) LIKE '%groin%' 
+          OR LOWER(notes) LIKE '%rest%' 
+          OR LOWER(notes) LIKE '%load management%'
+        THEN 'Overuse / Soft Tissue'
+        
+        WHEN LOWER(notes) LIKE '%fracture%' 
+          OR LOWER(notes) LIKE '%surgery%' 
+          OR LOWER(notes) LIKE '%sprain%' 
+          OR LOWER(notes) LIKE '%concussion%' 
+          OR LOWER(notes) LIKE '%torn%'
+        THEN 'Trauma / Contact'
+        
+        ELSE 'Uncategorized / Other'
+    END AS injury_category,
+    
+    COALESCE(games_missed_estimate, 1) AS games_missed
+FROM raw_data
+    );
+    
+  
+[0m19:15:35.063247 [debug] [Thread-1 (]: SQL status: OK in 0.018 seconds
+[0m19:15:35.080740 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:15:35.081689 [debug] [Thread-2 (]: SQL status: OK in 0.038 seconds
+[0m19:15:35.082438 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_injuries"} */
+
+    SELECT index_name
+    FROM duckdb_indexes()
+    WHERE database_name = 'nba_injuries'
+      AND schema_name = 'main_silver'
+      AND table_name = 'stg_injuries'
+  
+[0m19:15:35.112582 [debug] [Thread-2 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_tracking"
+[0m19:15:35.114381 [debug] [Thread-2 (]: On model.nba_injury_analytics.stg_player_tracking: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_player_tracking"} */
+alter table "nba_injuries"."main_silver"."stg_player_tracking__dbt_tmp" rename to "stg_player_tracking"
+[0m19:15:35.124858 [debug] [Thread-2 (]: SQL status: OK in 0.007 seconds
+[0m19:15:35.141832 [debug] [Thread-1 (]: SQL status: OK in 0.028 seconds
+[0m19:15:35.456803 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:15:35.458043 [debug] [Thread-3 (]: SQL status: OK in 0.414 seconds
+[0m19:15:35.459162 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_injuries"} */
+alter table "nba_injuries"."main_silver"."stg_injuries" rename to "stg_injuries__dbt_backup"
+[0m19:15:35.489586 [debug] [Thread-3 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_workload"
+[0m19:15:35.492920 [debug] [Thread-2 (]: On model.nba_injury_analytics.stg_player_tracking: COMMIT
+[0m19:15:35.496512 [debug] [Thread-3 (]: On model.nba_injury_analytics.stg_player_workload: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_player_workload"} */
+alter table "nba_injuries"."main_silver"."stg_player_workload__dbt_tmp" rename to "stg_player_workload"
+[0m19:15:35.498642 [debug] [Thread-2 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_tracking"
+[0m19:15:35.506129 [debug] [Thread-2 (]: On model.nba_injury_analytics.stg_player_tracking: COMMIT
+[0m19:15:35.502535 [debug] [Thread-1 (]: SQL status: OK in 0.005 seconds
+[0m19:15:35.508065 [debug] [Thread-3 (]: SQL status: OK in 0.007 seconds
+[0m19:15:35.516885 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:15:35.523766 [debug] [Thread-3 (]: On model.nba_injury_analytics.stg_player_workload: COMMIT
+[0m19:15:35.525163 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_injuries"} */
+alter table "nba_injuries"."main_silver"."stg_injuries__dbt_tmp" rename to "stg_injuries"
+[0m19:15:35.526497 [debug] [Thread-3 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_workload"
+[0m19:15:35.527995 [debug] [Thread-3 (]: On model.nba_injury_analytics.stg_player_workload: COMMIT
+[0m19:15:35.530344 [debug] [Thread-1 (]: SQL status: OK in 0.003 seconds
+[0m19:15:35.569494 [debug] [Thread-2 (]: SQL status: OK in 0.060 seconds
+[0m19:15:35.616169 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: COMMIT
+[0m19:15:35.627035 [debug] [Thread-2 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_tracking"
+[0m19:15:35.628325 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:15:35.629684 [debug] [Thread-2 (]: On model.nba_injury_analytics.stg_player_tracking: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_player_tracking"} */
+
+      drop table if exists "nba_injuries"."main_silver"."stg_player_tracking__dbt_backup" cascade
+    
+[0m19:15:35.632733 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: COMMIT
+[0m19:15:35.634205 [debug] [Thread-3 (]: SQL status: OK in 0.105 seconds
+[0m19:15:35.644475 [debug] [Thread-3 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_workload"
+[0m19:15:35.645858 [debug] [Thread-3 (]: On model.nba_injury_analytics.stg_player_workload: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_player_workload"} */
+
+      drop table if exists "nba_injuries"."main_silver"."stg_player_workload__dbt_backup" cascade
+    
+[0m19:15:35.651070 [debug] [Thread-2 (]: SQL status: OK in 0.017 seconds
+[0m19:15:35.675922 [debug] [Thread-3 (]: SQL status: OK in 0.029 seconds
+[0m19:15:35.682511 [debug] [Thread-3 (]: On model.nba_injury_analytics.stg_player_workload: Close
+[0m19:15:35.683634 [debug] [Thread-1 (]: SQL status: OK in 0.046 seconds
+[0m19:15:35.687596 [debug] [Thread-2 (]: On model.nba_injury_analytics.stg_player_tracking: Close
+[0m19:15:35.701961 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:15:35.706741 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_injuries"} */
+
+      drop table if exists "nba_injuries"."main_silver"."stg_injuries__dbt_backup" cascade
+    
+[0m19:15:35.710610 [debug] [Thread-3 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '3f1a83ce-63a8-4fd7-b430-b23463b5d7ba', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001608F1137D0>]}
+[0m19:15:35.713689 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '3f1a83ce-63a8-4fd7-b430-b23463b5d7ba', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000160910362B0>]}
+[0m19:15:35.712676 [info ] [Thread-3 (]: 3 of 3 OK created sql table model main_silver.stg_player_workload .............. [[32mOK[0m in 1.10s]
+[0m19:15:35.717468 [debug] [Thread-3 (]: Finished running node model.nba_injury_analytics.stg_player_workload
+[0m19:15:35.720266 [debug] [Thread-1 (]: SQL status: OK in 0.011 seconds
+[0m19:15:35.715540 [info ] [Thread-2 (]: 2 of 3 OK created sql table model main_silver.stg_player_tracking .............. [[32mOK[0m in 1.12s]
+[0m19:15:35.727197 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: Close
+[0m19:15:35.729034 [debug] [Thread-2 (]: Finished running node model.nba_injury_analytics.stg_player_tracking
+[0m19:15:35.730773 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '3f1a83ce-63a8-4fd7-b430-b23463b5d7ba', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016090A2A350>]}
+[0m19:15:35.732912 [info ] [Thread-1 (]: 1 of 3 OK created sql table model main_silver.stg_injuries ..................... [[32mOK[0m in 1.14s]
+[0m19:15:35.737580 [debug] [Thread-1 (]: Finished running node model.nba_injury_analytics.stg_injuries
+[0m19:15:35.743030 [debug] [MainThread]: Using duckdb connection "master"
+[0m19:15:35.744071 [debug] [MainThread]: On master: BEGIN
+[0m19:15:35.745017 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m19:15:35.746931 [debug] [MainThread]: SQL status: OK in 0.002 seconds
+[0m19:15:35.747978 [debug] [MainThread]: On master: COMMIT
+[0m19:15:35.748977 [debug] [MainThread]: Using duckdb connection "master"
+[0m19:15:35.750001 [debug] [MainThread]: On master: COMMIT
+[0m19:15:35.755835 [debug] [MainThread]: SQL status: OK in 0.005 seconds
+[0m19:15:35.757787 [debug] [MainThread]: On master: Close
+[0m19:15:35.759123 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m19:15:35.760120 [debug] [MainThread]: Connection 'create_nba_injuries_main_silver' was properly closed.
+[0m19:15:35.761038 [debug] [MainThread]: Connection 'list_nba_injuries_main_silver' was properly closed.
+[0m19:15:35.761996 [debug] [MainThread]: Connection 'model.nba_injury_analytics.stg_player_tracking' was properly closed.
+[0m19:15:35.762938 [debug] [MainThread]: Connection 'model.nba_injury_analytics.stg_injuries' was properly closed.
+[0m19:15:35.763844 [debug] [MainThread]: Connection 'model.nba_injury_analytics.stg_player_workload' was properly closed.
+[0m19:15:35.765063 [info ] [MainThread]: 
+[0m19:15:35.767700 [info ] [MainThread]: Finished running 3 table models in 0 hours 0 minutes and 3.04 seconds (3.04s).
+[0m19:15:35.778231 [debug] [MainThread]: Command end result
+[0m19:15:35.900234 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Users\pedro\Downloads\nba-injury-analytics\dbt\target\manifest.json
+[0m19:15:35.908466 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Users\pedro\Downloads\nba-injury-analytics\dbt\target\semantic_manifest.json
+[0m19:15:35.936847 [debug] [MainThread]: Wrote artifact RunExecutionResult to C:\Users\pedro\Downloads\nba-injury-analytics\dbt\target\run_results.json
+[0m19:15:35.938018 [info ] [MainThread]: 
+[0m19:15:35.940724 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m19:15:35.942669 [info ] [MainThread]: 
+[0m19:15:35.947829 [info ] [MainThread]: Done. PASS=3 WARN=0 ERROR=0 SKIP=0 TOTAL=3
+[0m19:15:35.953340 [debug] [MainThread]: Command `dbt run` succeeded at 19:15:35.952820 after 9.20 seconds
+[0m19:15:35.955107 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016090DA7050>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000016090FDA950>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001608A12A200>]}
+[0m19:15:35.956523 [debug] [MainThread]: Flushing usage events
+[0m19:15:36.554402 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m19:21:35.848539 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018C2C8B74D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018C299E7250>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018C2D89F9D0>]}
+
+
+============================== 19:21:35.863135 | 176b2a1a-8156-43d6-9c13-2d2007e96f8a ==============================
+[0m19:21:35.863135 [info ] [MainThread]: Running with dbt=1.9.10
+[0m19:21:35.864822 [debug] [MainThread]: running dbt with arguments {'version_check': 'True', 'no_print': 'None', 'static_parser': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'False', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'profiles_dir': '.', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'use_colors': 'True', 'indirect_selection': 'eager', 'invocation_command': 'dbt run --profiles-dir .', 'use_experimental_parser': 'False', 'log_path': 'C:\\Users\\pedro\\Downloads\\nba-injury-analytics\\dbt\\logs'}
+[0m19:21:37.344369 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '176b2a1a-8156-43d6-9c13-2d2007e96f8a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018C2CD9AB10>]}
+[0m19:21:37.519143 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '176b2a1a-8156-43d6-9c13-2d2007e96f8a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018C2D732AD0>]}
+[0m19:21:37.524157 [info ] [MainThread]: Registered adapter: duckdb=1.11.1
+[0m19:21:38.820900 [debug] [MainThread]: checksum: c40cca0353c9a9b4dbd2a57cdc3e2440f5c9a71a795694b25a51e704baaf554e, vars: {}, profile: , target: , version: 1.9.10
+[0m19:21:39.073112 [info ] [MainThread]: Unable to do partial parsing because a project config has changed
+[0m19:21:39.074039 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '176b2a1a-8156-43d6-9c13-2d2007e96f8a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018C2EED1950>]}
+[0m19:21:43.796954 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '176b2a1a-8156-43d6-9c13-2d2007e96f8a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018C2EDBDF40>]}
+[0m19:21:43.980924 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Users\pedro\Downloads\nba-injury-analytics\dbt\target\manifest.json
+[0m19:21:43.988716 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Users\pedro\Downloads\nba-injury-analytics\dbt\target\semantic_manifest.json
+[0m19:21:44.086597 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '176b2a1a-8156-43d6-9c13-2d2007e96f8a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018C2F547230>]}
+[0m19:21:44.087728 [info ] [MainThread]: Found 5 models, 3 sources, 511 macros
+[0m19:21:44.088919 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '176b2a1a-8156-43d6-9c13-2d2007e96f8a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018C2F35C870>]}
+[0m19:21:44.093760 [info ] [MainThread]: 
+[0m19:21:44.094985 [info ] [MainThread]: Concurrency: 4 threads (target='dev')
+[0m19:21:44.096474 [info ] [MainThread]: 
+[0m19:21:44.098096 [debug] [MainThread]: Acquiring new duckdb connection 'master'
+[0m19:21:44.130430 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_nba_injuries'
+[0m19:21:44.152450 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_nba_injuries'
+[0m19:21:44.612018 [debug] [ThreadPool]: Using duckdb connection "list_nba_injuries"
+[0m19:21:44.612691 [debug] [ThreadPool]: Using duckdb connection "list_nba_injuries"
+[0m19:21:44.613209 [debug] [ThreadPool]: On list_nba_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "connection_name": "list_nba_injuries"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"nba_injuries"'
+    
+  
+  
+[0m19:21:44.613718 [debug] [ThreadPool]: On list_nba_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "connection_name": "list_nba_injuries"} */
+
+    
+    select schema_name
+    from system.information_schema.schemata
+    
+    where lower(catalog_name) = '"nba_injuries"'
+    
+  
+  
+[0m19:21:44.614185 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m19:21:44.614625 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m19:21:44.841856 [debug] [ThreadPool]: SQL status: OK in 0.228 seconds
+[0m19:21:44.842415 [debug] [ThreadPool]: SQL status: OK in 0.228 seconds
+[0m19:21:44.844282 [debug] [ThreadPool]: On list_nba_injuries: Close
+[0m19:21:44.845768 [debug] [ThreadPool]: On list_nba_injuries: Close
+[0m19:21:44.847000 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_nba_injuries, now create_nba_injuries_main_silver)
+[0m19:21:44.847595 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list_nba_injuries, now create_nba_injuries_main_gold)
+[0m19:21:44.848619 [debug] [ThreadPool]: Creating schema "database: "nba_injuries"
+schema: "main_silver"
+"
+[0m19:21:44.849349 [debug] [ThreadPool]: Creating schema "database: "nba_injuries"
+schema: "main_gold"
+"
+[0m19:21:44.859330 [debug] [ThreadPool]: Using duckdb connection "create_nba_injuries_main_silver"
+[0m19:21:44.862078 [debug] [ThreadPool]: Using duckdb connection "create_nba_injuries_main_gold"
+[0m19:21:44.862650 [debug] [ThreadPool]: On create_nba_injuries_main_silver: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "connection_name": "create_nba_injuries_main_silver"} */
+
+    
+        select type from duckdb_databases()
+        where lower(database_name)='nba_injuries'
+        and type != 'duckdb'
+    
+  
+[0m19:21:44.863124 [debug] [ThreadPool]: On create_nba_injuries_main_gold: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "connection_name": "create_nba_injuries_main_gold"} */
+
+    
+        select type from duckdb_databases()
+        where lower(database_name)='nba_injuries'
+        and type != 'duckdb'
+    
+  
+[0m19:21:44.863627 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m19:21:44.864067 [debug] [ThreadPool]: Opening a new connection, currently in state closed
+[0m19:21:44.867352 [debug] [ThreadPool]: SQL status: OK in 0.004 seconds
+[0m19:21:44.867969 [debug] [ThreadPool]: SQL status: OK in 0.004 seconds
+[0m19:21:44.869808 [debug] [ThreadPool]: Using duckdb connection "create_nba_injuries_main_silver"
+[0m19:21:44.870270 [debug] [ThreadPool]: On create_nba_injuries_main_silver: BEGIN
+[0m19:21:44.871781 [debug] [ThreadPool]: Using duckdb connection "create_nba_injuries_main_gold"
+[0m19:21:44.872224 [debug] [ThreadPool]: On create_nba_injuries_main_gold: BEGIN
+[0m19:21:44.873052 [debug] [ThreadPool]: SQL status: OK in 0.002 seconds
+[0m19:21:44.873506 [debug] [ThreadPool]: Using duckdb connection "create_nba_injuries_main_silver"
+[0m19:21:44.873950 [debug] [ThreadPool]: On create_nba_injuries_main_silver: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "connection_name": "create_nba_injuries_main_silver"} */
+
+    
+    
+        create schema if not exists "nba_injuries"."main_silver"
+    
+[0m19:21:44.874426 [debug] [ThreadPool]: SQL status: OK in 0.002 seconds
+[0m19:21:44.874885 [debug] [ThreadPool]: Using duckdb connection "create_nba_injuries_main_gold"
+[0m19:21:44.875306 [debug] [ThreadPool]: On create_nba_injuries_main_gold: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "connection_name": "create_nba_injuries_main_gold"} */
+
+    
+    
+        create schema if not exists "nba_injuries"."main_gold"
+    
+[0m19:21:44.876882 [debug] [ThreadPool]: SQL status: OK in 0.001 seconds
+[0m19:21:44.878100 [debug] [ThreadPool]: On create_nba_injuries_main_gold: COMMIT
+[0m19:21:44.878562 [debug] [ThreadPool]: Using duckdb connection "create_nba_injuries_main_gold"
+[0m19:21:44.878977 [debug] [ThreadPool]: On create_nba_injuries_main_gold: COMMIT
+[0m19:21:44.879439 [debug] [ThreadPool]: SQL status: OK in 0.005 seconds
+[0m19:21:44.880618 [debug] [ThreadPool]: On create_nba_injuries_main_silver: COMMIT
+[0m19:21:44.881223 [debug] [ThreadPool]: Using duckdb connection "create_nba_injuries_main_silver"
+[0m19:21:44.881747 [debug] [ThreadPool]: On create_nba_injuries_main_silver: COMMIT
+[0m19:21:44.882705 [debug] [ThreadPool]: SQL status: OK in 0.000 seconds
+[0m19:21:44.883493 [debug] [ThreadPool]: On create_nba_injuries_main_silver: Close
+[0m19:21:44.888993 [debug] [ThreadPool]: SQL status: OK in 0.010 seconds
+[0m19:21:44.889523 [debug] [ThreadPool]: On create_nba_injuries_main_gold: Close
+[0m19:21:44.892569 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_nba_injuries_main_silver'
+[0m19:21:44.899695 [debug] [ThreadPool]: Using duckdb connection "list_nba_injuries_main_silver"
+[0m19:21:44.900384 [debug] [ThreadPool]: Acquiring new duckdb connection 'list_nba_injuries_main_gold'
+[0m19:21:44.900823 [debug] [ThreadPool]: On list_nba_injuries_main_silver: BEGIN
+[0m19:21:44.903079 [debug] [ThreadPool]: Using duckdb connection "list_nba_injuries_main_gold"
+[0m19:21:44.903544 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m19:21:44.903970 [debug] [ThreadPool]: On list_nba_injuries_main_gold: BEGIN
+[0m19:21:44.904608 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m19:21:44.905244 [debug] [ThreadPool]: SQL status: OK in 0.002 seconds
+[0m19:21:44.905718 [debug] [ThreadPool]: Using duckdb connection "list_nba_injuries_main_silver"
+[0m19:21:44.906251 [debug] [ThreadPool]: On list_nba_injuries_main_silver: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "connection_name": "list_nba_injuries_main_silver"} */
+select
+      'nba_injuries' as database,
+      table_name as name,
+      table_schema as schema,
+      CASE table_type
+        WHEN 'BASE TABLE' THEN 'table'
+        WHEN 'VIEW' THEN 'view'
+        WHEN 'LOCAL TEMPORARY' THEN 'table'
+        END as type
+    from system.information_schema.tables
+    where lower(table_schema) = 'main_silver'
+    and lower(table_catalog) = 'nba_injuries'
+  
+[0m19:21:44.906772 [debug] [ThreadPool]: SQL status: OK in 0.002 seconds
+[0m19:21:44.907255 [debug] [ThreadPool]: Using duckdb connection "list_nba_injuries_main_gold"
+[0m19:21:44.907691 [debug] [ThreadPool]: On list_nba_injuries_main_gold: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "connection_name": "list_nba_injuries_main_gold"} */
+select
+      'nba_injuries' as database,
+      table_name as name,
+      table_schema as schema,
+      CASE table_type
+        WHEN 'BASE TABLE' THEN 'table'
+        WHEN 'VIEW' THEN 'view'
+        WHEN 'LOCAL TEMPORARY' THEN 'table'
+        END as type
+    from system.information_schema.tables
+    where lower(table_schema) = 'main_gold'
+    and lower(table_catalog) = 'nba_injuries'
+  
+[0m19:21:44.944912 [debug] [ThreadPool]: SQL status: OK in 0.037 seconds
+[0m19:21:44.945581 [debug] [ThreadPool]: SQL status: OK in 0.039 seconds
+[0m19:21:44.947613 [debug] [ThreadPool]: On list_nba_injuries_main_gold: ROLLBACK
+[0m19:21:44.949882 [debug] [ThreadPool]: On list_nba_injuries_main_silver: ROLLBACK
+[0m19:21:44.950464 [debug] [ThreadPool]: On list_nba_injuries_main_gold: Close
+[0m19:21:44.951293 [debug] [ThreadPool]: On list_nba_injuries_main_silver: Close
+[0m19:21:44.953129 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '176b2a1a-8156-43d6-9c13-2d2007e96f8a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018C2F5B0650>]}
+[0m19:21:44.953776 [debug] [MainThread]: Using duckdb connection "master"
+[0m19:21:44.954217 [debug] [MainThread]: On master: BEGIN
+[0m19:21:44.954635 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m19:21:44.955527 [debug] [MainThread]: SQL status: OK in 0.001 seconds
+[0m19:21:44.956006 [debug] [MainThread]: On master: COMMIT
+[0m19:21:44.956464 [debug] [MainThread]: Using duckdb connection "master"
+[0m19:21:44.956870 [debug] [MainThread]: On master: COMMIT
+[0m19:21:44.957693 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m19:21:44.958150 [debug] [MainThread]: On master: Close
+[0m19:21:44.967438 [debug] [Thread-2 (]: Began running node model.nba_injury_analytics.stg_player_tracking
+[0m19:21:44.968038 [debug] [Thread-3 (]: Began running node model.nba_injury_analytics.stg_player_workload
+[0m19:21:44.968580 [debug] [Thread-1 (]: Began running node model.nba_injury_analytics.stg_injuries
+[0m19:21:44.969252 [info ] [Thread-2 (]: 2 of 5 START sql table model main_silver.stg_player_tracking ................... [RUN]
+[0m19:21:44.969912 [info ] [Thread-3 (]: 3 of 5 START sql table model main_silver.stg_player_workload ................... [RUN]
+[0m19:21:44.971511 [debug] [Thread-2 (]: Acquiring new duckdb connection 'model.nba_injury_analytics.stg_player_tracking'
+[0m19:21:44.972243 [debug] [Thread-3 (]: Acquiring new duckdb connection 'model.nba_injury_analytics.stg_player_workload'
+[0m19:21:44.970689 [info ] [Thread-1 (]: 1 of 5 START sql table model main_silver.stg_injuries .......................... [RUN]
+[0m19:21:44.972924 [debug] [Thread-2 (]: Began compiling node model.nba_injury_analytics.stg_player_tracking
+[0m19:21:44.973455 [debug] [Thread-3 (]: Began compiling node model.nba_injury_analytics.stg_player_workload
+[0m19:21:44.974100 [debug] [Thread-1 (]: Acquiring new duckdb connection 'model.nba_injury_analytics.stg_injuries'
+[0m19:21:44.986028 [debug] [Thread-2 (]: Writing injected SQL for node "model.nba_injury_analytics.stg_player_tracking"
+[0m19:21:44.990199 [debug] [Thread-3 (]: Writing injected SQL for node "model.nba_injury_analytics.stg_player_workload"
+[0m19:21:44.990906 [debug] [Thread-1 (]: Began compiling node model.nba_injury_analytics.stg_injuries
+[0m19:21:44.995229 [debug] [Thread-1 (]: Writing injected SQL for node "model.nba_injury_analytics.stg_injuries"
+[0m19:21:44.996382 [debug] [Thread-2 (]: Began executing node model.nba_injury_analytics.stg_player_tracking
+[0m19:21:44.998727 [debug] [Thread-2 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_tracking"
+[0m19:21:44.999288 [debug] [Thread-2 (]: On model.nba_injury_analytics.stg_player_tracking: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_player_tracking"} */
+select database_name, type from duckdb_databases()
+[0m19:21:44.999845 [debug] [Thread-2 (]: Opening a new connection, currently in state init
+[0m19:21:45.001146 [debug] [Thread-1 (]: Began executing node model.nba_injury_analytics.stg_injuries
+[0m19:21:45.001749 [debug] [Thread-2 (]: SQL status: OK in 0.002 seconds
+[0m19:21:45.004516 [debug] [Thread-3 (]: Began executing node model.nba_injury_analytics.stg_player_workload
+[0m19:21:45.008423 [debug] [Thread-2 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_tracking"
+[0m19:21:45.009035 [debug] [Thread-2 (]: On model.nba_injury_analytics.stg_player_tracking: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_player_tracking"} */
+
+                    select table_name, constraint_type from duckdb_constraints()
+                    where lower(database_name) = lower('nba_injuries')
+                      and lower(schema_name) = lower('main_silver')
+                      and constraint_type in ('PRIMARY KEY', 'UNIQUE', 'FOREIGN KEY')
+                    
+[0m19:21:45.012078 [debug] [Thread-2 (]: SQL status: OK in 0.002 seconds
+[0m19:21:45.150567 [debug] [Thread-3 (]: Writing runtime sql for node "model.nba_injury_analytics.stg_player_workload"
+[0m19:21:45.165127 [debug] [Thread-2 (]: Writing runtime sql for node "model.nba_injury_analytics.stg_player_tracking"
+[0m19:21:45.170267 [debug] [Thread-1 (]: Writing runtime sql for node "model.nba_injury_analytics.stg_injuries"
+[0m19:21:45.171753 [debug] [Thread-3 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_workload"
+[0m19:21:45.172464 [debug] [Thread-3 (]: On model.nba_injury_analytics.stg_player_workload: BEGIN
+[0m19:21:45.172975 [debug] [Thread-3 (]: Opening a new connection, currently in state init
+[0m19:21:45.174086 [debug] [Thread-2 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_tracking"
+[0m19:21:45.174728 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:21:45.175299 [debug] [Thread-2 (]: On model.nba_injury_analytics.stg_player_tracking: BEGIN
+[0m19:21:45.176054 [debug] [Thread-3 (]: SQL status: OK in 0.003 seconds
+[0m19:21:45.176725 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: BEGIN
+[0m19:21:45.177536 [debug] [Thread-3 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_workload"
+[0m19:21:45.178028 [debug] [Thread-1 (]: Opening a new connection, currently in state init
+[0m19:21:45.178454 [debug] [Thread-2 (]: SQL status: OK in 0.001 seconds
+[0m19:21:45.179000 [debug] [Thread-3 (]: On model.nba_injury_analytics.stg_player_workload: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_player_workload"} */
+
+    
+
+    create  table
+      "nba_injuries"."main_silver"."stg_player_workload__dbt_tmp"
+  
+    
+    as (
+      ﻿WITH base_game_logs AS (
+    SELECT
+        game_id,
+        player_id,
+        player_name,
+        game_date,
+        season,
+        team,
+        opponent,
+        is_home,
+        minutes_played,
+        pace,
+        fg3a
+    FROM "nba_injuries"."bronze"."raw_game_logs"
+)
+
+SELECT
+    game_id,
+    player_id,
+    player_name,
+    game_date,
+    season,
+    team,
+    opponent,
+    is_home,
+    minutes_played,
+    pace,
+    fg3a,
+    
+    -- Carga Aguda: Minutos jogados nos últimos 7 dias
+    SUM(minutes_played) OVER (
+        PARTITION BY player_id 
+        ORDER BY game_date 
+        RANGE BETWEEN INTERVAL '6 DAYS' PRECEDING AND CURRENT ROW
+    ) AS acute_load_minutes_7d,
+    
+    -- Carga Crônica: Média móvel de minutos nos últimos 28 dias
+    AVG(minutes_played) OVER (
+        PARTITION BY player_id 
+        ORDER BY game_date 
+        RANGE BETWEEN INTERVAL '27 DAYS' PRECEDING AND CURRENT ROW
+    ) * 4 AS chronic_load_minutes_28d,
+    
+    -- Flag de Back-to-Back (jogo em dias consecutivos)
+    CASE 
+        WHEN LAG(game_date, 1) OVER (PARTITION BY player_id ORDER BY game_date) = game_date - INTERVAL '1 DAY'
+        THEN 1 ELSE 0 
+    END AS is_back_to_back
+FROM base_game_logs
+    );
+    
+  
+[0m19:21:45.179770 [debug] [Thread-2 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_tracking"
+[0m19:21:45.180323 [debug] [Thread-1 (]: SQL status: OK in 0.002 seconds
+[0m19:21:45.180926 [debug] [Thread-2 (]: On model.nba_injury_analytics.stg_player_tracking: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_player_tracking"} */
+
+    
+
+    create  table
+      "nba_injuries"."main_silver"."stg_player_tracking__dbt_tmp"
+  
+    
+    as (
+      ﻿WITH raw_tracking AS (
+    SELECT
+        game_id,
+        player_id,
+        player_name,
+        game_date,
+        season,
+        distance_miles,
+        avg_speed_mph,
+        fast_break_points,
+        touches
+    FROM "nba_injuries"."bronze"."raw_player_tracking"
+)
+
+SELECT
+    game_id,
+    player_id,
+    player_name,
+    game_date,
+    season,
+    distance_miles,
+    avg_speed_mph,
+    
+    -- Estimativa de Carga Mecânica (Distância x Velocidade Médio)
+    ROUND(distance_miles * avg_speed_mph, 2) AS mechanical_workload_score,
+    fast_break_points,
+    touches
+FROM raw_tracking
+    );
+    
+  
+[0m19:21:45.181543 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:21:45.182238 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_injuries"} */
+
+    
+
+    create  table
+      "nba_injuries"."main_silver"."stg_injuries__dbt_tmp"
+  
+    
+    as (
+      ﻿WITH raw_data AS (
+    SELECT 
+        injury_id,
+        player_name,
+        injury_date,
+        season,
+        team,
+        notes,
+        games_missed_estimate
+    FROM "nba_injuries"."bronze"."raw_injuries"
+)
+
+SELECT
+    injury_id,
+    player_name,
+    injury_date,
+    season,
+    team,
+    notes,
+    
+    -- Categorização da Lesão (Sobrecarga Tecidual vs. Trauma de Contato)
+    CASE 
+        WHEN LOWER(notes) LIKE '%strain%' 
+          OR LOWER(notes) LIKE '%sore%' 
+          OR LOWER(notes) LIKE '%tendinitis%' 
+          OR LOWER(notes) LIKE '%calf%' 
+          OR LOWER(notes) LIKE '%hamstring%' 
+          OR LOWER(notes) LIKE '%groin%' 
+          OR LOWER(notes) LIKE '%rest%' 
+          OR LOWER(notes) LIKE '%load management%'
+        THEN 'Overuse / Soft Tissue'
+        
+        WHEN LOWER(notes) LIKE '%fracture%' 
+          OR LOWER(notes) LIKE '%surgery%' 
+          OR LOWER(notes) LIKE '%sprain%' 
+          OR LOWER(notes) LIKE '%concussion%' 
+          OR LOWER(notes) LIKE '%torn%'
+        THEN 'Trauma / Contact'
+        
+        ELSE 'Uncategorized / Other'
+    END AS injury_category,
+    
+    COALESCE(games_missed_estimate, 1) AS games_missed
+FROM raw_data
+    );
+    
+  
+[0m19:21:45.199532 [debug] [Thread-2 (]: SQL status: OK in 0.017 seconds
+[0m19:21:45.200151 [debug] [Thread-1 (]: SQL status: OK in 0.017 seconds
+[0m19:21:45.209499 [debug] [Thread-2 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_tracking"
+[0m19:21:45.211880 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:21:45.213151 [debug] [Thread-2 (]: On model.nba_injury_analytics.stg_player_tracking: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_player_tracking"} */
+
+    SELECT index_name
+    FROM duckdb_indexes()
+    WHERE database_name = 'nba_injuries'
+      AND schema_name = 'main_silver'
+      AND table_name = 'stg_player_tracking'
+  
+[0m19:21:45.214651 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_injuries"} */
+
+    SELECT index_name
+    FROM duckdb_indexes()
+    WHERE database_name = 'nba_injuries'
+      AND schema_name = 'main_silver'
+      AND table_name = 'stg_injuries'
+  
+[0m19:21:45.218689 [debug] [Thread-2 (]: SQL status: OK in 0.003 seconds
+[0m19:21:45.242172 [debug] [Thread-1 (]: SQL status: OK in 0.026 seconds
+[0m19:21:45.249260 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:21:45.234113 [debug] [Thread-2 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_tracking"
+[0m19:21:45.250201 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_injuries"} */
+alter table "nba_injuries"."main_silver"."stg_injuries" rename to "stg_injuries__dbt_backup"
+[0m19:21:45.250956 [debug] [Thread-2 (]: On model.nba_injury_analytics.stg_player_tracking: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_player_tracking"} */
+alter table "nba_injuries"."main_silver"."stg_player_tracking" rename to "stg_player_tracking__dbt_backup"
+[0m19:21:45.252713 [debug] [Thread-1 (]: SQL status: OK in 0.001 seconds
+[0m19:21:45.257384 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:21:45.258500 [debug] [Thread-2 (]: SQL status: OK in 0.007 seconds
+[0m19:21:45.259338 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_injuries"} */
+alter table "nba_injuries"."main_silver"."stg_injuries__dbt_tmp" rename to "stg_injuries"
+[0m19:21:45.267307 [debug] [Thread-2 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_tracking"
+[0m19:21:45.268405 [debug] [Thread-2 (]: On model.nba_injury_analytics.stg_player_tracking: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_player_tracking"} */
+alter table "nba_injuries"."main_silver"."stg_player_tracking__dbt_tmp" rename to "stg_player_tracking"
+[0m19:21:45.270268 [debug] [Thread-2 (]: SQL status: OK in 0.001 seconds
+[0m19:21:45.271454 [debug] [Thread-1 (]: SQL status: OK in 0.003 seconds
+[0m19:21:45.304851 [debug] [Thread-2 (]: On model.nba_injury_analytics.stg_player_tracking: COMMIT
+[0m19:21:45.305574 [debug] [Thread-3 (]: SQL status: OK in 0.125 seconds
+[0m19:21:45.308162 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: COMMIT
+[0m19:21:45.309054 [debug] [Thread-2 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_tracking"
+[0m19:21:45.311011 [debug] [Thread-3 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_workload"
+[0m19:21:45.311798 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:21:45.312388 [debug] [Thread-2 (]: On model.nba_injury_analytics.stg_player_tracking: COMMIT
+[0m19:21:45.313290 [debug] [Thread-3 (]: On model.nba_injury_analytics.stg_player_workload: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_player_workload"} */
+
+    SELECT index_name
+    FROM duckdb_indexes()
+    WHERE database_name = 'nba_injuries'
+      AND schema_name = 'main_silver'
+      AND table_name = 'stg_player_workload'
+  
+[0m19:21:45.314251 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: COMMIT
+[0m19:21:45.316969 [debug] [Thread-3 (]: SQL status: OK in 0.002 seconds
+[0m19:21:45.321973 [debug] [Thread-3 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_workload"
+[0m19:21:45.322574 [debug] [Thread-3 (]: On model.nba_injury_analytics.stg_player_workload: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_player_workload"} */
+alter table "nba_injuries"."main_silver"."stg_player_workload" rename to "stg_player_workload__dbt_backup"
+[0m19:21:45.324099 [debug] [Thread-3 (]: SQL status: OK in 0.001 seconds
+[0m19:21:45.330198 [debug] [Thread-3 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_workload"
+[0m19:21:45.331071 [debug] [Thread-3 (]: On model.nba_injury_analytics.stg_player_workload: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_player_workload"} */
+alter table "nba_injuries"."main_silver"."stg_player_workload__dbt_tmp" rename to "stg_player_workload"
+[0m19:21:45.331971 [debug] [Thread-2 (]: SQL status: OK in 0.017 seconds
+[0m19:21:45.339554 [debug] [Thread-2 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_tracking"
+[0m19:21:45.340222 [debug] [Thread-2 (]: On model.nba_injury_analytics.stg_player_tracking: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_player_tracking"} */
+
+      drop table if exists "nba_injuries"."main_silver"."stg_player_tracking__dbt_backup" cascade
+    
+[0m19:21:45.340910 [debug] [Thread-1 (]: SQL status: OK in 0.025 seconds
+[0m19:21:45.341735 [debug] [Thread-3 (]: SQL status: OK in 0.009 seconds
+[0m19:21:45.345156 [debug] [Thread-1 (]: Using duckdb connection "model.nba_injury_analytics.stg_injuries"
+[0m19:21:45.348890 [debug] [Thread-3 (]: On model.nba_injury_analytics.stg_player_workload: COMMIT
+[0m19:21:45.349921 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_injuries"} */
+
+      drop table if exists "nba_injuries"."main_silver"."stg_injuries__dbt_backup" cascade
+    
+[0m19:21:45.350845 [debug] [Thread-3 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_workload"
+[0m19:21:45.351811 [debug] [Thread-3 (]: On model.nba_injury_analytics.stg_player_workload: COMMIT
+[0m19:21:45.352738 [debug] [Thread-2 (]: SQL status: OK in 0.011 seconds
+[0m19:21:45.359020 [debug] [Thread-2 (]: On model.nba_injury_analytics.stg_player_tracking: Close
+[0m19:21:45.359905 [debug] [Thread-1 (]: SQL status: OK in 0.008 seconds
+[0m19:21:45.365905 [debug] [Thread-1 (]: On model.nba_injury_analytics.stg_injuries: Close
+[0m19:21:45.367977 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '176b2a1a-8156-43d6-9c13-2d2007e96f8a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018C2F5D6C50>]}
+[0m19:21:45.368606 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '176b2a1a-8156-43d6-9c13-2d2007e96f8a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018C2CD6A490>]}
+[0m19:21:45.369727 [info ] [Thread-2 (]: 2 of 5 OK created sql table model main_silver.stg_player_tracking .............. [[32mOK[0m in 0.39s]
+[0m19:21:45.371948 [debug] [Thread-2 (]: Finished running node model.nba_injury_analytics.stg_player_tracking
+[0m19:21:45.370717 [info ] [Thread-1 (]: 1 of 5 OK created sql table model main_silver.stg_injuries ..................... [[32mOK[0m in 0.39s]
+[0m19:21:45.373195 [debug] [Thread-1 (]: Finished running node model.nba_injury_analytics.stg_injuries
+[0m19:21:45.420484 [debug] [Thread-3 (]: SQL status: OK in 0.067 seconds
+[0m19:21:45.430002 [debug] [Thread-3 (]: Using duckdb connection "model.nba_injury_analytics.stg_player_workload"
+[0m19:21:45.431783 [debug] [Thread-3 (]: On model.nba_injury_analytics.stg_player_workload: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.stg_player_workload"} */
+
+      drop table if exists "nba_injuries"."main_silver"."stg_player_workload__dbt_backup" cascade
+    
+[0m19:21:45.438194 [debug] [Thread-3 (]: SQL status: OK in 0.005 seconds
+[0m19:21:45.442145 [debug] [Thread-3 (]: On model.nba_injury_analytics.stg_player_workload: Close
+[0m19:21:45.443735 [debug] [Thread-3 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '176b2a1a-8156-43d6-9c13-2d2007e96f8a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018C2F8CB4D0>]}
+[0m19:21:45.445579 [info ] [Thread-3 (]: 3 of 5 OK created sql table model main_silver.stg_player_workload .............. [[32mOK[0m in 0.47s]
+[0m19:21:45.447726 [debug] [Thread-3 (]: Finished running node model.nba_injury_analytics.stg_player_workload
+[0m19:21:45.449720 [debug] [Thread-2 (]: Began running node model.nba_injury_analytics.fct_league_era_workload_injuries
+[0m19:21:45.451152 [debug] [Thread-4 (]: Began running node model.nba_injury_analytics.fct_acute_chronic_workload_ratio
+[0m19:21:45.452625 [info ] [Thread-2 (]: 5 of 5 START sql table model main_gold.fct_league_era_workload_injuries ........ [RUN]
+[0m19:21:45.457366 [debug] [Thread-2 (]: Re-using an available connection from the pool (formerly model.nba_injury_analytics.stg_player_tracking, now model.nba_injury_analytics.fct_league_era_workload_injuries)
+[0m19:21:45.459511 [debug] [Thread-2 (]: Began compiling node model.nba_injury_analytics.fct_league_era_workload_injuries
+[0m19:21:45.454865 [info ] [Thread-4 (]: 4 of 5 START sql table model main_gold.fct_acute_chronic_workload_ratio ........ [RUN]
+[0m19:21:45.471497 [debug] [Thread-2 (]: Writing injected SQL for node "model.nba_injury_analytics.fct_league_era_workload_injuries"
+[0m19:21:45.473789 [debug] [Thread-4 (]: Acquiring new duckdb connection 'model.nba_injury_analytics.fct_acute_chronic_workload_ratio'
+[0m19:21:45.477196 [debug] [Thread-4 (]: Began compiling node model.nba_injury_analytics.fct_acute_chronic_workload_ratio
+[0m19:21:45.487393 [debug] [Thread-4 (]: Writing injected SQL for node "model.nba_injury_analytics.fct_acute_chronic_workload_ratio"
+[0m19:21:45.490539 [debug] [Thread-2 (]: Began executing node model.nba_injury_analytics.fct_league_era_workload_injuries
+[0m19:21:45.494985 [debug] [Thread-2 (]: Using duckdb connection "model.nba_injury_analytics.fct_league_era_workload_injuries"
+[0m19:21:45.495791 [debug] [Thread-2 (]: On model.nba_injury_analytics.fct_league_era_workload_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.fct_league_era_workload_injuries"} */
+
+                    select table_name, constraint_type from duckdb_constraints()
+                    where lower(database_name) = lower('nba_injuries')
+                      and lower(schema_name) = lower('main_gold')
+                      and constraint_type in ('PRIMARY KEY', 'UNIQUE', 'FOREIGN KEY')
+                    
+[0m19:21:45.496479 [debug] [Thread-4 (]: Began executing node model.nba_injury_analytics.fct_acute_chronic_workload_ratio
+[0m19:21:45.497148 [debug] [Thread-2 (]: Opening a new connection, currently in state closed
+[0m19:21:45.501798 [debug] [Thread-2 (]: SQL status: OK in 0.005 seconds
+[0m19:21:45.506490 [debug] [Thread-2 (]: Writing runtime sql for node "model.nba_injury_analytics.fct_league_era_workload_injuries"
+[0m19:21:45.509520 [debug] [Thread-4 (]: Writing runtime sql for node "model.nba_injury_analytics.fct_acute_chronic_workload_ratio"
+[0m19:21:45.512657 [debug] [Thread-4 (]: Using duckdb connection "model.nba_injury_analytics.fct_acute_chronic_workload_ratio"
+[0m19:21:45.513386 [debug] [Thread-2 (]: Using duckdb connection "model.nba_injury_analytics.fct_league_era_workload_injuries"
+[0m19:21:45.514018 [debug] [Thread-4 (]: On model.nba_injury_analytics.fct_acute_chronic_workload_ratio: BEGIN
+[0m19:21:45.514597 [debug] [Thread-2 (]: On model.nba_injury_analytics.fct_league_era_workload_injuries: BEGIN
+[0m19:21:45.515115 [debug] [Thread-4 (]: Opening a new connection, currently in state init
+[0m19:21:45.516059 [debug] [Thread-2 (]: SQL status: OK in 0.000 seconds
+[0m19:21:45.516609 [debug] [Thread-2 (]: Using duckdb connection "model.nba_injury_analytics.fct_league_era_workload_injuries"
+[0m19:21:45.517197 [debug] [Thread-2 (]: On model.nba_injury_analytics.fct_league_era_workload_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.fct_league_era_workload_injuries"} */
+
+    
+
+    create  table
+      "nba_injuries"."main_gold"."fct_league_era_workload_injuries__dbt_tmp"
+  
+    
+    as (
+      ﻿WITH season_workload AS (
+    SELECT
+        season,
+        ROUND(AVG(pace), 2) AS avg_league_pace,
+        ROUND(AVG(fg3a), 2) AS avg_league_fg3a,
+        SUM(is_back_to_back) AS total_back_to_backs
+    FROM "nba_injuries"."main_silver"."stg_player_workload"
+    GROUP BY season
+),
+
+season_injuries AS (
+    SELECT
+        season,
+        COUNT(injury_id) AS total_injuries,
+        COUNT(CASE WHEN injury_category = 'Overuse / Soft Tissue' THEN 1 END) AS overuse_injuries,
+        COUNT(CASE WHEN injury_category = 'Trauma / Contact' THEN 1 END) AS trauma_injuries
+    FROM "nba_injuries"."main_silver"."stg_injuries"
+    GROUP BY season
+)
+
+SELECT
+    w.season,
+    w.avg_league_pace,
+    w.avg_league_fg3a,
+    w.total_back_to_backs,
+    COALESCE(i.total_injuries, 0) AS total_injuries,
+    COALESCE(i.overuse_injuries, 0) AS overuse_injuries,
+    COALESCE(i.trauma_injuries, 0) AS trauma_injuries,
+    
+    -- Proporção de lesões por sobrecarga tecidual em relação ao total
+    ROUND(
+        COALESCE(i.overuse_injuries, 0)::DOUBLE / NULLIF(COALESCE(i.total_injuries, 0), 0) * 100, 
+        2
+    ) AS overuse_injury_pct
+FROM season_workload w
+LEFT JOIN season_injuries i ON w.season = i.season
+ORDER BY w.season ASC
+    );
+    
+  
+[0m19:21:45.517821 [debug] [Thread-4 (]: SQL status: OK in 0.003 seconds
+[0m19:21:45.518416 [debug] [Thread-4 (]: Using duckdb connection "model.nba_injury_analytics.fct_acute_chronic_workload_ratio"
+[0m19:21:45.518953 [debug] [Thread-4 (]: On model.nba_injury_analytics.fct_acute_chronic_workload_ratio: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.fct_acute_chronic_workload_ratio"} */
+
+    
+
+    create  table
+      "nba_injuries"."main_gold"."fct_acute_chronic_workload_ratio__dbt_tmp"
+  
+    
+    as (
+      ﻿WITH workload AS (
+    SELECT * FROM "nba_injuries"."main_silver"."stg_player_workload"
+),
+
+injuries AS (
+    SELECT * FROM "nba_injuries"."main_silver"."stg_injuries"
+)
+
+SELECT
+    i.injury_id,
+    i.player_name,
+    i.injury_date,
+    i.season,
+    i.injury_category,
+    i.notes,
+    
+    w.acute_load_minutes_7d,
+    w.chronic_load_minutes_28d,
+    
+    -- Razão Carga Aguda : Carga Crônica (ACWR)
+    -- ACWR > 1.5 indica pico de sobrecarga
+    ROUND(
+        w.acute_load_minutes_7d / NULLIF(w.chronic_load_minutes_28d / 4.0, 0), 
+        2
+    ) AS acwr_ratio,
+    
+    w.is_back_to_back
+FROM injuries i
+LEFT JOIN workload w 
+    ON i.player_name = w.player_name 
+   AND i.injury_date = w.game_date
+    );
+    
+  
+[0m19:21:45.534104 [debug] [Thread-2 (]: SQL status: OK in 0.016 seconds
+[0m19:21:45.538315 [debug] [Thread-2 (]: Using duckdb connection "model.nba_injury_analytics.fct_league_era_workload_injuries"
+[0m19:21:45.538942 [debug] [Thread-2 (]: On model.nba_injury_analytics.fct_league_era_workload_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.fct_league_era_workload_injuries"} */
+alter table "nba_injuries"."main_gold"."fct_league_era_workload_injuries__dbt_tmp" rename to "fct_league_era_workload_injuries"
+[0m19:21:45.540389 [debug] [Thread-4 (]: SQL status: OK in 0.021 seconds
+[0m19:21:45.544335 [debug] [Thread-4 (]: Using duckdb connection "model.nba_injury_analytics.fct_acute_chronic_workload_ratio"
+[0m19:21:45.544887 [debug] [Thread-2 (]: SQL status: OK in 0.005 seconds
+[0m19:21:45.545385 [debug] [Thread-4 (]: On model.nba_injury_analytics.fct_acute_chronic_workload_ratio: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.fct_acute_chronic_workload_ratio"} */
+alter table "nba_injuries"."main_gold"."fct_acute_chronic_workload_ratio__dbt_tmp" rename to "fct_acute_chronic_workload_ratio"
+[0m19:21:45.547439 [debug] [Thread-2 (]: On model.nba_injury_analytics.fct_league_era_workload_injuries: COMMIT
+[0m19:21:45.548134 [debug] [Thread-2 (]: Using duckdb connection "model.nba_injury_analytics.fct_league_era_workload_injuries"
+[0m19:21:45.548658 [debug] [Thread-2 (]: On model.nba_injury_analytics.fct_league_era_workload_injuries: COMMIT
+[0m19:21:45.549214 [debug] [Thread-4 (]: SQL status: OK in 0.001 seconds
+[0m19:21:45.551265 [debug] [Thread-4 (]: On model.nba_injury_analytics.fct_acute_chronic_workload_ratio: COMMIT
+[0m19:21:45.552066 [debug] [Thread-4 (]: Using duckdb connection "model.nba_injury_analytics.fct_acute_chronic_workload_ratio"
+[0m19:21:45.552770 [debug] [Thread-4 (]: On model.nba_injury_analytics.fct_acute_chronic_workload_ratio: COMMIT
+[0m19:21:45.553492 [debug] [Thread-2 (]: SQL status: OK in 0.004 seconds
+[0m19:21:45.556242 [debug] [Thread-2 (]: Using duckdb connection "model.nba_injury_analytics.fct_league_era_workload_injuries"
+[0m19:21:45.556775 [debug] [Thread-2 (]: On model.nba_injury_analytics.fct_league_era_workload_injuries: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.fct_league_era_workload_injuries"} */
+
+      drop table if exists "nba_injuries"."main_gold"."fct_league_era_workload_injuries__dbt_backup" cascade
+    
+[0m19:21:45.557817 [debug] [Thread-2 (]: SQL status: OK in 0.000 seconds
+[0m19:21:45.559568 [debug] [Thread-2 (]: On model.nba_injury_analytics.fct_league_era_workload_injuries: Close
+[0m19:21:45.560350 [debug] [Thread-2 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '176b2a1a-8156-43d6-9c13-2d2007e96f8a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018C2FA19080>]}
+[0m19:21:45.561182 [info ] [Thread-2 (]: 5 of 5 OK created sql table model main_gold.fct_league_era_workload_injuries ... [[32mOK[0m in 0.10s]
+[0m19:21:45.562137 [debug] [Thread-2 (]: Finished running node model.nba_injury_analytics.fct_league_era_workload_injuries
+[0m19:21:45.564173 [debug] [Thread-4 (]: SQL status: OK in 0.011 seconds
+[0m19:21:45.566961 [debug] [Thread-4 (]: Using duckdb connection "model.nba_injury_analytics.fct_acute_chronic_workload_ratio"
+[0m19:21:45.567482 [debug] [Thread-4 (]: On model.nba_injury_analytics.fct_acute_chronic_workload_ratio: /* {"app": "dbt", "dbt_version": "1.9.10", "profile_name": "nba_injury_analytics", "target_name": "dev", "node_id": "model.nba_injury_analytics.fct_acute_chronic_workload_ratio"} */
+
+      drop table if exists "nba_injuries"."main_gold"."fct_acute_chronic_workload_ratio__dbt_backup" cascade
+    
+[0m19:21:45.568567 [debug] [Thread-4 (]: SQL status: OK in 0.001 seconds
+[0m19:21:45.570631 [debug] [Thread-4 (]: On model.nba_injury_analytics.fct_acute_chronic_workload_ratio: Close
+[0m19:21:45.571531 [debug] [Thread-4 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '176b2a1a-8156-43d6-9c13-2d2007e96f8a', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018C30A7C650>]}
+[0m19:21:45.572499 [info ] [Thread-4 (]: 4 of 5 OK created sql table model main_gold.fct_acute_chronic_workload_ratio ... [[32mOK[0m in 0.10s]
+[0m19:21:45.573640 [debug] [Thread-4 (]: Finished running node model.nba_injury_analytics.fct_acute_chronic_workload_ratio
+[0m19:21:45.575907 [debug] [MainThread]: Using duckdb connection "master"
+[0m19:21:45.576443 [debug] [MainThread]: On master: BEGIN
+[0m19:21:45.576841 [debug] [MainThread]: Opening a new connection, currently in state closed
+[0m19:21:45.577687 [debug] [MainThread]: SQL status: OK in 0.001 seconds
+[0m19:21:45.578126 [debug] [MainThread]: On master: COMMIT
+[0m19:21:45.578530 [debug] [MainThread]: Using duckdb connection "master"
+[0m19:21:45.578910 [debug] [MainThread]: On master: COMMIT
+[0m19:21:45.579563 [debug] [MainThread]: SQL status: OK in 0.000 seconds
+[0m19:21:45.579982 [debug] [MainThread]: On master: Close
+[0m19:21:45.580500 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m19:21:45.580874 [debug] [MainThread]: Connection 'create_nba_injuries_main_silver' was properly closed.
+[0m19:21:45.581228 [debug] [MainThread]: Connection 'create_nba_injuries_main_gold' was properly closed.
+[0m19:21:45.581596 [debug] [MainThread]: Connection 'list_nba_injuries_main_silver' was properly closed.
+[0m19:21:45.581946 [debug] [MainThread]: Connection 'list_nba_injuries_main_gold' was properly closed.
+[0m19:21:45.582295 [debug] [MainThread]: Connection 'model.nba_injury_analytics.fct_league_era_workload_injuries' was properly closed.
+[0m19:21:45.582644 [debug] [MainThread]: Connection 'model.nba_injury_analytics.stg_player_workload' was properly closed.
+[0m19:21:45.582992 [debug] [MainThread]: Connection 'model.nba_injury_analytics.stg_injuries' was properly closed.
+[0m19:21:45.583349 [debug] [MainThread]: Connection 'model.nba_injury_analytics.fct_acute_chronic_workload_ratio' was properly closed.
+[0m19:21:45.583831 [info ] [MainThread]: 
+[0m19:21:45.584383 [info ] [MainThread]: Finished running 5 table models in 0 hours 0 minutes and 1.49 seconds (1.49s).
+[0m19:21:45.586302 [debug] [MainThread]: Command end result
+[0m19:21:45.618804 [debug] [MainThread]: Wrote artifact WritableManifest to C:\Users\pedro\Downloads\nba-injury-analytics\dbt\target\manifest.json
+[0m19:21:45.623601 [debug] [MainThread]: Wrote artifact SemanticManifest to C:\Users\pedro\Downloads\nba-injury-analytics\dbt\target\semantic_manifest.json
+[0m19:21:45.635567 [debug] [MainThread]: Wrote artifact RunExecutionResult to C:\Users\pedro\Downloads\nba-injury-analytics\dbt\target\run_results.json
+[0m19:21:45.636059 [info ] [MainThread]: 
+[0m19:21:45.636808 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m19:21:45.637613 [info ] [MainThread]: 
+[0m19:21:45.638480 [info ] [MainThread]: Done. PASS=5 WARN=0 ERROR=0 SKIP=0 TOTAL=5
+[0m19:21:45.640091 [debug] [MainThread]: Command `dbt run` succeeded at 19:21:45.639871 after 10.36 seconds
+[0m19:21:45.640648 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018C2B370410>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018C2F9DE930>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000018C2F9DFF50>]}
+[0m19:21:45.641132 [debug] [MainThread]: Flushing usage events
+[0m19:21:46.387620 [debug] [MainThread]: An error was encountered while trying to flush usage events
