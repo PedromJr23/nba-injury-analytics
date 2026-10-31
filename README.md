@@ -1,70 +1,70 @@
-﻿# 🏀 NBA Injury Analytics: Correlation Between Game Evolution & Musculoskeletal Strain (1980–2024)
+﻿# 🏀 NBA Injury Analytics: Análise de Carga, Ritmo e Risco de Lesões (1980–2024)
 
-An end-to-end data engineering, analytics, and machine learning pipeline built to investigate the biomechanical impact of the "Pace & Space" era on modern NBA players' workload and overuse injury rates.
-
----
-
-## 📌 Executive Summary & Key Insights
-
-1. **The Pace & Space Injury Explosion:** Historical records show a dramatic surge in reported soft-tissue and overuse injuries during the 2010s and 2020s (**>1,200 records/decade**) compared to preceding eras (~500 records/decade).
-2. **ACWR Spikes as the Primary Trigger:** **91.1%** of analyzed soft-tissue injuries occurred when a player's **Acute:Chronic Workload Ratio (ACWR) exceeded 1.5**—the critical threshold where short-term fatigue outpaces long-term chronic conditioning.
-3. **Spatial Load & High-Deceleration Demands:** The explosion of 3-point volume (`fg3a` expanding from 1.5 to 7.0+ per game) widened the physical area players must cover, multiplying high-intensity accelerations and decelerations that elevate muscular fatigue regardless of total minutes played.
+Pipeline end-to-end de engenharia de dados, analytics e machine learning construído para investigar o impacto biomecânico da era "Pace & Space" sobre a carga de trabalho dos atletas da NBA e a taxa de lesões por sobrecarga muscular.
 
 ---
 
-## 🔬 Methodology & Architecture
+## 📌 Principais Conclusões e Insights dos Dados
 
-The project utilizes a local **Medallion Architecture** backed by **DuckDB** and transformed via **dbt (data build tool)**:
-
-* **Bronze Layer:** Raw game logs, player tracking telemetry (distance/speed), and historical injury reports (~40k game records, 3,300+ injury records).
-* **Silver Layer:** Standardized injury taxonomy (*Overuse/Soft Tissue* vs. *Trauma/Contact*), 7-day rolling acute workload, 28-day chronic workload baselines, and Back-to-Back flags.
-* **Gold Layer:** Strategic business marts linking season-level macro pace/spacing to micro-level player ACWR spikes.
+1. **A Explosão de Lesões na Era Pace & Space:** Os dados históricos mostram um salto expressivo nos registros de lesões teciduais nas décadas de 2010 e 2020 (**> 1.200 registros/década**) em comparação com as eras anteriores (~500 registros/década).
+2. **Picos de ACWR como Gatilho Principal:** **91,1%** das lesões por sobrecarga muscular analisadas ocorreram quando a Razão Carga Aguda : Carga Crônica (**ACWR**) do jogador ultrapassou **1,5** — o limiar crítico onde a fadiga de curto prazo supera o condicionamento crônico.
+3. **Carga Espacial e Frenagens de Alta Intensidade:** O aumento do volume de arremessos de 3 pontos (`fg3a` subindo de 1.5 para 7.0+ por jogo) expandiu a área de quadra que os atletas precisam defender, multiplicando acelerações e desacelerações que elevam a fadiga muscular, independentemente da minutagem total jogada.
 
 ---
 
-## 📊 Visual Storytelling & Empirical Evidence
+## 🔬 Metodologia & Arquitetura
 
-### 1. Pace vs. Overuse Injuries Across Eras (1980–2024)
-As game tempo (`pace`) and spatial spread escalated, tissue overuse injuries increased proportionally:
+O projeto utiliza a arquitetura **Medallion** implementada no **DuckDB** e transformada via **dbt (data build tool)**:
+
+* **Camada Bronze:** Dados brutos de game logs, telemetria/tracking de jogadores (distância e velocidade) e histórico de lesões (~40k partidas e 3.300+ lesões).
+* **Camada Silver:** Taxonomia padronizada de lesões (*Overuse/Soft Tissue* vs. *Trauma/Contact*), janelas móveis de carga aguda (7 dias), carga crônica (28 dias) e flags de jogos em dias consecutivos (*Back-to-Back*).
+* **Camada Gold:** Marts analíticos ligando métricas macro da liga (*Pace e Espaçamento*) com picos micro de ACWR dos atletas.
+
+---
+
+## 📊 Evidências Estatísticas e Visualizações
+
+### 1. Pace vs. Lesões por Sobrecarga (1980–2024)
+Com a aceleração do ritmo de jogo (`pace`) e o espaçamento em quadra, a incidência de lesões teciduais cresceu de forma diretamente proporcional:
 
 ![Pace vs Overuse Injuries](reports/figures/pace_vs_overuse_injuries.png)
 
-| Era | Avg Pace | Avg 3PA (`fg3a`) | Overuse Injuries | Overuse Injury % |
+| Era | Pace Médio | Arremessos de 3P (`fg3a`) | Lesões por Sobrecarga | % Lesões de Sobrecarga |
 | :--- | :---: | :---: | :---: | :---: |
-| **1980s (Physical Contact Era)** | 101.0 | 1.5 | 441 | 88.2% |
-| **1990s (Defensive Hand-Check Era)** | 91.5 | 3.0 | 427 | 85.4% |
-| **2000s (Isolations & Mid-Range)** | 91.5 | 3.0 | 433 | 86.6% |
-| **2010s (Pace & Space Explosion)** | 99.0 | 7.0 | 1,047 | 87.2% |
-| **2020s (High-Intensity Spatial Load)** | 99.0 | 7.0 | 532 | 88.7% |
+| **1980s (Era de Contato Físico)** | 101.0 | 1.5 | 441 | 88.2% |
+| **1990s (Era do Hand-Check Defensivo)** | 91.5 | 3.0 | 427 | 85.4% |
+| **2000s (Isolamento e Media Distância)** | 91.5 | 3.0 | 433 | 86.6% |
+| **2010s (Explosão do Pace & Space)** | 99.0 | 7.0 | 1.047 | 87.2% |
+| **2020s (Carga Espacial e Intensidade)** | 99.0 | 7.0 | 532 | 88.7% |
 
 ---
 
-### 2. Acute:Chronic Workload Ratio (ACWR) Distribution
-Distribution of player workload ratios at the precise moment an overuse injury occurred. Values above `1.5` represent the red zone of acute workload spikes:
+### 2. Distribuição do ACWR (Acute:Chronic Workload Ratio)
+Distribuição das taxas de sobrecarga dos atletas no exato momento da ocorrência da lesão. Valores acima de `1.5` representam a zona de risco crítico:
 
 ![ACWR Distribution](reports/figures/acwr_distribution.png)
 
-* **Analyzed Injury Events:** 684
-* **Events with ACWR > 1.5:** 623 (**91.1%**)
-* **Average ACWR at Injury Event:** 3.55
+* **Eventos de Lesão Analisados:** 684
+* **Ocorrências com ACWR > 1.5:** 623 (**91,1%**)
+* **Média do ACWR no Momento da Lesão:** 3.55
 
 ---
 
-## 🤖 Machine Learning Pipeline & Rule Auditing
+## 🤖 Pipeline de Machine Learning e Auditoria de Regras
 
-To avoid algorithmic bias and "hallucination," the pipeline combines non-supervised anomaly detection with supervised risk classification and decision tree rule auditing:
+Para evitar viés e alucinação estatística, o pipeline combina aprendizado não supervisionado com classificação supervisionada e auditoria transparente por árvore de decisão:
 
-1. **Isolation Forest (Unsupervised):** Isolate mechanical workload anomalies without ground-truth bias (flagged 1,985 extreme workload games).
-2. **Random Forest Classifier (Supervised):** Configured with `class_weight='balanced'` to optimize **Recall** (capturing 38% of injury occurrences on test split without missing high-risk spikes).
-3. **Decision Tree Auditor:** Extractable logical rules (`max_depth=3`) revealing exact thresholds (e.g., high risk triggers when `fg3a > 4.50`, `pace > 94.85`, and 28-day chronic load window indicates accumulation).
+1. **Isolation Forest (Não Supervisionado):** Identifica anomalias extremas de carga biomecânica sem dependência de rótulos (identificou 1.985 partidas anômalas).
+2. **Random Forest Classifier (Supervisionado):** Ajustado com `class_weight='balanced'` para priorizar a **Sensibilidade (Recall)** na detecção de atletas sob risco.
+3. **Auditor de Regras (Árvore de Decisão Explicável):** Extrai regras condicionais diretas (ex: risco elevado ativado quando `fg3a > 4.50`, `pace > 94.85` e a carga acumulada de 28 dias atinge limites de saturação).
 
-![Confusion Matrix](reports/figures/confusion_matrix.png)
+![Matriz de Confusão](reports/figures/confusion_matrix.png)
 
 ---
 
-## 🛠️ How to Run Locally
+## 🛠️ Como Executar o Projeto
 
-1. Install dependencies: `pip install duckdb dbt-duckdb scikit-learn matplotlib seaborn pandas`
-2. Run dbt transformation pipeline: `cd dbt; dbt run --profiles-dir .; cd ..`
-3. Generate analytics reports and plots: `python scripts/analytics/plot_insights.py`
-4. Train hybrid ML model and audit decision rules: `python scripts/ml/train_injury_risk_model.py`
+1. Instalar dependências: `pip install duckdb dbt-duckdb scikit-learn matplotlib seaborn pandas`
+2. Executar pipeline do dbt: `cd dbt; dbt run --profiles-dir .; cd ..`
+3. Gerar relatórios e gráficos: `python scripts/analytics/plot_insights.py`
+4. Treinar modelo de ML e extrair regras: `python scripts/ml/train_injury_risk_model.py`
