@@ -1,4 +1,4 @@
-﻿# 🏀 NBA Injury Analytics: Análise de Carga, Ritmo e Risco de Lesões (1980–2024)
+# 🏀 NBA Injury Analytics: Análise de Carga, Ritmo e Risco de Lesões (1980–2024)
 
 Pipeline end-to-end de engenharia de dados, analytics e machine learning construído para investigar o impacto biomecânico da era "Pace & Space" sobre a carga de trabalho dos atletas da NBA, a transição anatômica das lesões e o custo financeiro direto para as franquias.
 
@@ -8,19 +8,19 @@ Pipeline end-to-end de engenharia de dados, analytics e machine learning constru
 
 1. **Explosão do Volume de Lesões:** Os registros de lesões teciduais nas décadas de 2010 e 2020 saltaram para **> 1.200 registros/década** contra ~500 nas eras anteriores.
 2. **Mapeamento Biomecânico (Zona da Quadra vs. Região do Corpo):**
-   * **Zona de Garrafão (Era 1980–1999):** Movimentos de salto vertical e contato físico em espaço reduzido $\rightarrow$ Impactos articulares em **Tornozelos e Contusões Ósseas**.
-   * **Zona do Perímetro / Linha de 3P (Era 2010–2024):** Ações de alta velocidade espacial, fechamento de espaço (closeouts), trocas de direção laterais e desacelerações bruscas $\rightarrow$ Estresse sob tração em **Posterior de Coxa (Hamstrings), Virilha/Adutores e Tendão Patelar**.
+   * **Zona de Garrafão (Era 1980–1999):** Movimentos de salto vertical e contato físico em espaço reduzido -> Impactos articulares em **Tornozelos e Contusões Ósseas**.
+   * **Zona do Perímetro / Linha de 3P (Era 2010–2024):** Ações de alta velocidade espacial, fechamento de espaço (*closeouts*), trocas de direção laterais e desacelerações bruscas -> Estresse sob tração em **Posterior de Coxa (Hamstrings), Virilha/Adutores e Tendão Patelar**.
 3. **Picos de ACWR como Gatilho Principal:** **91,1%** das lesões por sobrecarga ocorreram com a Razão Carga Aguda : Carga Crônica (**ACWR > 1,5**).
 4. **Custo Financeiro para as Franquias:** Na era moderna, o custo estimado em salários pagos a atletas afastados por lesões teciduais de perímetro lidera os prejuízos de folha salarial.
 
 ---
 
-## 🗺️ Mapeamento Cruzado: Zona da Quadra $\rightarrow$ Ação $\rightarrow$ Região Corporal $\rightarrow$ Custo
+## 🗺️ Mapeamento Cruzado: Zona da Quadra -> Ação -> Região Corporal -> Custo
 
 | Zona Principal da Quadra | Padrão de Movimento Dominante | Estresse Biomecânico | Região do Corpo Afetada | Gravidade Média | Custo Estimado por Evento |
 | :--- | :--- | :--- | :--- | :---: | :---: |
 | **Garrafão / Pintado** | Salto vertical, aterrisagem sobre pés e contato corporal direto | Inversão/Eversão de tornozelo e trauma de impacto | **Tornozelo, Joelho (Contato) e Costas** | 3 a 8 jogos | ~$150k – $350k |
-| **Perímetro / Linha de 3P** | Desaceleração súbita para arremesso (*step-back*) e arranque explisivo | Sobrecarga excêntrica no quadríceps e miosite | **Tendão Patelar (Joelho) e Virilha** | 12 a 25 jogos | ~$600k – $1.5M |
+| **Perímetro / Linha de 3P** | Desaceleração súbita para arremesso (*step-back*) e arranque explosivo | Sobrecarga excêntrica no quadríceps e miosite | **Tendão Patelar (Joelho) e Virilha** | 12 a 25 jogos | ~$600k – $1.5M |
 | **Transição / Transição Aberta** | *Sprints* de quadra inteira e troca de direção (*crossover*) | Força de cisalhamento e estiramento miossepta | **Posterior de Coxa (Hamstring)** | 10 a 20 jogos | ~$500k – $1.2M |
 | **Fechamento de Espaço (*Closeouts*)** | Frenagem contínua para contestar chutes a 8m da cesta | Carga rotacional e torção do pivô articular | **Tornozelo e Ligamento Patelar** | 5 a 15 jogos | ~$250k – $800k |
 
@@ -30,7 +30,7 @@ Pipeline end-to-end de engenharia de dados, analytics e machine learning constru
 
 O projeto utiliza a arquitetura **Medallion** implementada no **DuckDB** e transformada via **dbt (data build tool)**:
 
-* **Camada Bronze:** Game logs brutos, tracking de distância/velocidade e histórico de lesões (~40k partidas e 3.300+ lesões).
+* **Camada Bronze:** Dados brutos de game logs, telemetria/tracking de jogadores (~40k partidas e 3.300+ lesões).
 * **Camada Silver:** Taxonomia padronizada de lesões (*Overuse/Soft Tissue* vs. *Trauma/Contact*), janelas móveis de carga aguda (7d), carga crônica (28d) e flags de *Back-to-Back*.
 * **Camada Gold:** Marts analíticos ligando métricas de *Pace/Space* com custo financeiro em salários e risco preditivo.
 
@@ -70,9 +70,11 @@ O projeto utiliza a arquitetura **Medallion** implementada no **DuckDB** e trans
 
 ## 🤖 Pipeline de Machine Learning e Auditoria de Regras
 
-1. **Isolation Forest (Não Supervisionado):** Identifica anomalias de carga biomecânica sem viés de rótulo.
-2. **Random Forest Classifier (Supervisionado):** Ajustado com `class_weight='balanced'` para priorizar a Sensibilidade (**Recall**).
-3. **Auditor de Regras:** Extração transparente de gatilhos condicionais por Árvore de Decisão.
+O pipeline Preditivo Híbrido combina algoritmos não supervisionados e supervisionados com ajuste de limiar probabilístico para lidar com o desbalanceamento severo de dados (~1,7% de taxa de lesões):
+
+1. **Isolation Forest (Não Supervisionado):** Identifica anomalias extremas de carga biomecânica nos *game logs* sem viés de rótulo prévio.
+2. **Random Forest Classifier + Threshold Tuning (Supervisionado):** Recalibrado via ajuste fino de limiar probabilístico de corte (*Precision-Recall Curve*). O modelo substitui o limiar padrão de 50% por um ponto de corte ótimo, reduzindo os alarmes falsos de **2.306 para 122** ocorrências.
+3. **Auditor de Regras (Árvore de Decisão Explicável):** Transforma os nós de decisão em regras de negócio acionáveis.
 
 ![Matriz de Confusão](reports/figures/confusion_matrix.png)
 
@@ -83,4 +85,4 @@ O projeto utiliza a arquitetura **Medallion** implementada no **DuckDB** e trans
 1. Instalar dependências: `pip install duckdb dbt-duckdb scikit-learn matplotlib seaborn pandas`
 2. Executar pipeline do dbt: `cd dbt; dbt run --profiles-dir .; cd ..`
 3. Gerar relatórios e gráficos: `python scripts/analytics/plot_insights.py`
-4. Treinar modelo de ML: `python scripts/ml/train_injury_risk_model.py`
+4. Treinar modelo de ML otimizado: `python scripts/ml/train_injury_risk_model.py`
