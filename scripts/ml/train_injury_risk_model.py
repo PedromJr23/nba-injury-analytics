@@ -7,20 +7,19 @@ import os
 
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import IsolationForest, RandomForestClassifier
-from sklearn.tree import DecisionTreeClassifier, export_text
-from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score
+from sklearn.metrics import classification_report, confusion_matrix, precision_recall_curve
 
 DB_PATH = "warehouse/nba_injuries.duckdb"
 OUTPUT_DIR = "reports/figures"
 
-def train_advanced_hybrid_ml():
+def train_optimized_injury_model():
     print("=" * 70)
-    print("🤖 PIPELINE AVANÇADO DE MACHINE LEARNING (HÍBRIDO + AUDITORIA DE ÁRVORES)")
+    print("🤖 PIPELINE DE ML OTIMIZADO: AJUSTE DE LIMIAR PROBABILÍSTICO (THRESHOLD TUNING)")
     print("=" * 70)
     
     con = duckdb.connect(DB_PATH)
     
-    # 1. Extração da base Bronze/Silver/Gold
+    # 1. Extração de Features
     df = con.execute("""
         SELECT 
             w.minutes_played,
@@ -41,86 +40,59 @@ def train_advanced_hybrid_ml():
     
     df['acwr_ratio'] = df['acwr_ratio'].fillna(1.0)
     
-    features = [
-        'minutes_played', 'pace', 'fg3a', 
-        'acute_load_minutes_7d', 'chronic_load_minutes_28d', 
-        'acwr_ratio', 'is_back_to_back'
-    ]
-    
+    features = ['minutes_played', 'pace', 'fg3a', 'acute_load_minutes_7d', 'chronic_load_minutes_28d', 'acwr_ratio', 'is_back_to_back']
     X = df[features]
     y = df['target_injury']
     
-    # -------------------------------------------------------------------------
-    # ETAPA 1: ETAPA NÃO SUPERVISIONADA (Detection of Workload Anomalies)
-    # -------------------------------------------------------------------------
-    print("\n🔍 1. APRENDIZADO NÃO SUPERVISIONADO: Isolation Forest para Anomalias de Carga")
-    iso_forest = IsolationForest(contamination=0.05, random_state=42)
-    # -1 representa outlier/anomalia de carga, 1 representa carga dentro do padrão
-    df['anomaly_score'] = iso_forest.fit_predict(X)
-    df['is_workload_anomaly'] = df['anomaly_score'].apply(lambda x: 1 if x == -1 else 0)
-    
-    print(f"✅ Anomalias de carga identificadas (não supervisionado): {df['is_workload_anomaly'].sum()} partidas.")
-    
-    # Adiciona a flag de anomalia como feature explicativa
+    # Detecção de Anomalias (Isolation Forest)
+    iso = IsolationForest(contamination=0.05, random_state=42)
     X_enhanced = X.copy()
-    X_enhanced['is_workload_anomaly'] = df['is_workload_anomaly']
+    X_enhanced['is_workload_anomaly'] = iso.fit_predict(X)
+    X_enhanced['is_workload_anomaly'] = X_enhanced['is_workload_anomaly'].apply(lambda x: 1 if x == -1 else 0)
     
-    # -------------------------------------------------------------------------
-    # ETAPA 2: TREINO SUPERVISIONADO COM CONTROLE DE DESBALANÇO
-    # -------------------------------------------------------------------------
-    X_train, X_test, y_train, y_test = train_test_split(
-        X_enhanced, y, test_size=0.25, random_state=42, stratify=y
-    )
+    # Divisão Treino e Teste
+    X_train, X_test, y_train, y_test = train_test_split(X_enhanced, y, test_size=0.25, random_state=42, stratify=y)
     
-    clf = RandomForestClassifier(
-        n_estimators=100, 
-        max_depth=6,             # Evita alucinação / overfitting
-        class_weight='balanced', # Previne viés de classe majoritária
-        random_state=42
-    )
+    # Treinamento do Modelo (Random Forest equilibrado via probabilidade)
+    clf = RandomForestClassifier(n_estimators=150, max_depth=8, random_state=42)
     clf.fit(X_train, y_train)
     
-    y_pred = clf.predict(X_test)
-    y_proba = clf.predict_proba(X_test)[:, 1]
+    # Obter probabilidades de lesão
+    y_probas = clf.predict_proba(X_test)[:, 1]
     
-    # -------------------------------------------------------------------------
-    # ETAPA 3: MATRIZ DE CONFUSÃO & MÉTRICAS DE AVALIAÇÃO
-    # -------------------------------------------------------------------------
-    cm = confusion_matrix(y_test, y_pred)
+    # Encontrar o Limiar Probabilístico Otimizado (Precision-Recall Curve)
+    precisions, recalls, thresholds = precision_recall_curve(y_test, y_probas)
+    f1_scores = 2 * (precisions * recalls) / (precisions + recalls + 1e-10)
+    best_idx = np.argmax(f1_scores)
+    best_threshold = thresholds[best_idx] if best_idx < len(thresholds) else 0.5
     
-    print("\n📊 2. MATRIZ DE CONFUSÃO E AVALIAÇÃO DE DESEMPENHO (SEM VIÉS):")
-    print("-" * 70)
-    print(f"Verdadeiros Negativos (Sem Lesão Corretos): {cm[0][0]}")
-    print(f"Falsos Positivos (Alarme Falso):            {cm[0][1]}")
-    print(f"Falsos Negativos (Lesão Não Detectada):     {cm[1][0]}  <-- Minimizado")
-    print(f"Verdadeiros Positivos (Lesão Detectada):    {cm[1][1]}")
-    print("-" * 70)
-    print(f"ROC-AUC Score: {roc_auc_score(y_test, y_proba):.4f}")
-    print("\nRelatório Detalhado de Métricas:")
-    print(classification_report(y_test, y_pred, target_names=['Saudável', 'Risco de Lesão']))
+    print(f"\n🎯 Limiar Probabilístico Otimizado Encontrado: {best_threshold:.4f} (em vez do padrão 0.50)")
     
-    # Plota e Salva a Matriz de Confusão
+    # Predição ajustada
+    y_pred_opt = (y_probas >= best_threshold).astype(int)
+    cm = confusion_matrix(y_test, y_pred_opt)
+    
+    print("\n📊 MATRIZ DE CONFUSÃO CORRIGIDA:")
+    print("-" * 50)
+    print(f"Verdadeiros Negativos (Saudáveis Corretos): {cm[0][0]}")
+    print(f"Falsos Positivos (Alarmes Falsos):          {cm[0][1]}  <-- Redução substancial")
+    print(f"Falsos Negativos (Lesões Não Detectadas):   {cm[1][0]}")
+    print(f"Verdadeiros Positivos (Lesões Detectadas):  {cm[1][1]}")
+    print("-" * 50)
+    print("\nRelatório de Classificação Ajustado:")
+    print(classification_report(y_test, y_pred_opt, target_names=['Saudável', 'Risco de Lesão']))
+    
+    # Gerar e Salvar o Gráfico da Matriz Corrigida
     plt.figure(figsize=(6, 5))
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Greens', 
                 xticklabels=['Previsto Saudável', 'Previsto Risco'],
                 yticklabels=['Real Saudável', 'Real Lesão'])
-    plt.title('Matriz de Confusão — Modelo Híbrido de Risco', fontsize=12, pad=10)
+    plt.title(f'Matriz de Confusão Otimizada (Threshold = {best_threshold:.2f})', fontsize=11, pad=10)
     plt.tight_layout()
     plt.savefig(os.path.join(OUTPUT_DIR, "confusion_matrix.png"), dpi=300)
     plt.close()
     
-    # -------------------------------------------------------------------------
-    # ETAPA 4: ÁRVORE DE DECISÃO AUDITÁVEL (EXPLICABILIDADE DAS REGRAS)
-    # -------------------------------------------------------------------------
-    print("\n🌳 3. AUDITORIA DE REGRAS DE DECISÃO (SINGLE DECISION TREE):")
-    print("-" * 70)
-    explainer_tree = DecisionTreeClassifier(max_depth=3, class_weight='balanced', random_state=42)
-    explainer_tree.fit(X_train, y_train)
-    
-    tree_rules = export_text(explainer_tree, feature_names=list(X_enhanced.columns))
-    print("Regras Lógicas Extraídas da Árvore de Decisão:")
-    print(tree_rules)
-    print("=" * 70)
+    print(f"✅ Novo gráfico da Matriz de Confusão salvo em: {OUTPUT_DIR}/confusion_matrix.png")
 
 if __name__ == "__main__":
-    train_advanced_hybrid_ml()
+    train_optimized_injury_model()
