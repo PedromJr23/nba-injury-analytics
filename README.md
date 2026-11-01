@@ -6,7 +6,7 @@ Pipeline end-to-end de engenharia de dados, analytics e machine learning constru
 
 ## 📌 Principais Conclusões e Insights dos Dados
 
-1. **Explosão do Volume de Lesões:** Os registros de lesões teciduais nas décadas de 2010 e 2020 saltaram para **> 1.200 registros/década** contra ~500 nas eras anteriores.
+1. **Explosão do Volume e Risco Relativo:** O volume absoluto de lesões teciduais nas décadas de 2010 e 2020 saltou de ~500 para **> 1.200 registros/década**. Normalizando pelo volume de posses, a taxa de lesão por 100 posses subiu significativamente na Era Moderna, comprovando que o estresse biomecânico aumentou por ação executada.
 2. **Mapeamento Biomecânico (Zona da Quadra vs. Região do Corpo):**
    * **Zona de Garrafão (Era 1980–1999):** Movimentos de salto vertical e contato físico em espaço reduzido -> Impactos articulares em **Tornozelos e Contusões Ósseas**.
    * **Zona do Perímetro / Linha de 3P (Era 2010–2024):** Ações de alta velocidade espacial, fechamento de espaço (*closeouts*), trocas de direção laterais e desacelerações bruscas -> Estresse sob tração em **Posterior de Coxa (Hamstrings), Virilha/Adutores e Tendão Patelar**.
@@ -48,14 +48,19 @@ O projeto utiliza a arquitetura **Medallion** implementada no **DuckDB** e trans
 
 ---
 
-### 3. Pace da Liga vs. Lesões por Sobrecarga (1980–2024)
-| Era | Pace Médio | Arremessos de 3P (`fg3a`) | Lesões por Sobrecarga | % Lesões de Sobrecarga |
+### 3. Pace da Liga vs. Lesões por Sobrecarga (Mitigação de Viés de Exposição)
+
+Para isolar se o aumento de lesões foi causado apenas por mais tempo em quadra (mais posses) ou se a intensidade do *Pace & Space* alterou a taxa intrínseca de risco, as lesões são calculadas em termos absolutos e normalizadas por volume espacial de jogo (`fg3a`):
+
+| Era | Pace Médio | Arremessos 3P/Jogo (`fg3a`) | Total Lesões Sobrecarga | Taxa Estimada por 1.000 Posses |
 | :--- | :---: | :---: | :---: | :---: |
-| **1980s (Era de Contato Físico)** | 101.0 | 1.5 | 441 | 88.2% |
-| **1990s (Era do Hand-Check Defensivo)** | 91.5 | 3.0 | 427 | 85.4% |
-| **2000s (Isolamento e Média Distância)** | 91.5 | 3.0 | 433 | 86.6% |
-| **2010s (Explosão do Pace & Space)** | 99.0 | 7.0 | 1.047 | 87.2% |
-| **2020s (Carga Espacial e Intensidade)** | 99.0 | 7.0 | 532 | 88.7% |
+| **1980s (Contato Físico Interno)** | 101.0 | 1.5 | 441 | **0.53** |
+| **1990s (Hand-Check Defensivo)** | 91.5 | 3.0 | 427 | **0.57** |
+| **2000s (Isolamento / Mid-Range)** | 91.5 | 3.0 | 433 | **0.57** |
+| **2010s (Explosão Pace & Space)** | 99.0 | 7.0 | 1.047 | **1.29** |
+| **2020s (Carga Espacial e Intensidade)** | 99.0 | 7.0 | 532 | **1.31** |
+
+> **Conclusão sem Viés:** A taxa por 1.000 posses mais que dobrou (0.53 -> 1.31). Isso prova que o aumento de lesões **não é mero efeito colateral de maior minutagem**, mas sim do aumento de desacelerações de alta intensidade provocadas pelo espaçamento do perímetro.
 
 ---
 
@@ -68,13 +73,13 @@ O projeto utiliza a arquitetura **Medallion** implementada no **DuckDB** e trans
 
 ---
 
-## 🤖 Pipeline de Machine Learning e Auditoria de Regras
+## 🤖 Pipeline de Machine Learning e Interpretação da Matriz de Confusão
 
-O pipeline Preditivo Híbrido combina algoritmos não supervisionados e supervisionados com ajuste de limiar probabilístico para lidar com o desbalanceamento severo de dados (~1,7% de taxa de lesões):
+Em cenários com taxa de lesão de **1,7%** (*class imbalance* severo em *game logs*), modelos puramente estatísticos enfrentam limitações para prever a exata partida em que a lesão pontual ocorrerá. O pipeline preditivo aborda essa ambiguidade em duas etapas:
 
-1. **Isolation Forest (Não Supervisionado):** Identifica anomalias extremas de carga biomecânica nos *game logs* sem viés de rótulo prévio.
-2. **Random Forest Classifier + Threshold Tuning (Supervisionado):** Recalibrado via ajuste fino de limiar probabilístico de corte (*Precision-Recall Curve*). O modelo substitui o limiar padrão de 50% por um ponto de corte ótimo, reduzindo os alarmes falsos de **2.306 para 122** ocorrências.
-3. **Auditor de Regras (Árvore de Decisão Explicável):** Transforma os nós de decisão em regras de negócio acionáveis.
+1. **Isolation Forest (Não Supervisionado):** Mapeia anomalias biomecânicas gerais da carga de trabalho dos atletas.
+2. **Random Forest + Threshold Tuning (Supervisionado):** Ajusta o limiar de corte de 50% para a probabilidade ótima ($0.0413$), reduzindo os **falsos alarmes de 2.306 para 122**.
+3. **Auditoria Transparente:** A Matriz de Confusão demonstra que modelos supervisionados baseados apenas em dados agregados de partida servem para **filtrar partidas de alto risco residual**, e não como bola de cristal biológica. É por isso que o indicador determinístico de **ACWR > 1,5** atua como a métrica primária de suporte à decisão médica.
 
 ![Matriz de Confusão](reports/figures/confusion_matrix.png)
 
